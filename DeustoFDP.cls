@@ -69,8 +69,8 @@
 \RequirePackage{subcaption}             % Packages for doing sub-captions
 \RequirePackage[chapter]{minted}        % Package for writing source code
                                         % Environment personalization for the source code
-\renewcommand\listingscaption{Algoritmo}
-\renewcommand\listoflistingscaption{\'Indice de algoritmos}
+\renewcommand\listingscaption{Algorithm}
+\renewcommand\listoflistingscaption{Algorithm Index}
 \renewcommand{\listoflistings}{%
   %\addcontentsline{toc}{chapter}{\listoflistingscaption}%
   \listof{listing}{\listoflistingscaption}%
