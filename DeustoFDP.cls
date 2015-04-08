@@ -79,10 +79,11 @@
 \RequirePackage{titlesec}               % Package for personalizing chapters
 										% Font for titles
 \newfontfamily\sectionfont{texgyrebonum-regular.otf}[
-Path = fonts/,
-BoldFont = texgyrebonum-bold.otf ,
-ItalicFont = texgyrebonum-italic.otf ,
-BoldItalicFont = texgyrebonum-bolditalic.otf]
+	Path = fonts/,
+	BoldFont = texgyrebonum-bold.otf ,
+	ItalicFont = texgyrebonum-italic.otf ,
+	BoldItalicFont = texgyrebonum-bolditalic.otf
+]
 
                                         % Special formats for chapters and sections
 \titleformat{\chapter}[display]{\sectionfont\bfseries}{}{0pt}{\filleft\Large\thechapter.\quad\uppercase}[\titlerule\vspace{-2em}]
