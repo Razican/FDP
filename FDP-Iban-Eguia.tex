@@ -1,8 +1,13 @@
 \documentclass{DeustoFDP}
 \emergencystretch=1em % this is for using emergency stretches in overfulls
 
-\usepackage{array}
+\usepackage{array, multirow}
+\newlength{\Oldarrayrulewidth}
 \newcommand\VRule[1][\arrayrulewidth]{\vrule width #1}
+\newcommand{\Cline}[2]{%
+  \noalign{\global\setlength{\Oldarrayrulewidth}{\arrayrulewidth}}%
+  \noalign{\global\setlength{\arrayrulewidth}{#1}}\cline{#2}%
+  \noalign{\global\setlength{\arrayrulewidth}{\Oldarrayrulewidth}}}
 
 \hypersetup{
 	pdfauthor={Iban Eguia Moraza},
