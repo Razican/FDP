@@ -1,6 +1,7 @@
 \chapter{Planificación}
 
-En la tabla~\ref{tab:plan} se puede observar la planificación del proyecto.
+En la tabla~\ref{tab:plan} se puede observar la planificación del proyecto. También podemos ver las
+cargas de trabajo en la tabla~\ref{tab:work}
 
 \begin{table}[h]
 	\centering
@@ -9,8 +10,8 @@ En la tabla~\ref{tab:plan} se puede observar la planificación del proyecto.
 		\toprule
 		\textbf{Tarea} & \emph{Dependencias} & \emph{Recurso} & \emph{Días} & \emph{Horas} \\
 		\midrule
-		T1	&				& Jefe de proyecto			& 1		&	4	\\
-		T2	&				& Jefe de proyecto			& 1		&	4	\\
+		T1	&				& Jefe de proyecto			& 1		&	2	\\
+		T2	&				& Jefe de proyecto			& 1		&	2	\\
 		T3	&	T1			& Programador				& 8		&	32	\\
 		T4	&	T2			& Diseñador					& 4		&	16	\\
 		T5	&	T3			& Programador				& 14	&	56	\\
@@ -30,7 +31,23 @@ En la tabla~\ref{tab:plan} se puede observar la planificación del proyecto.
 	\end{tabular}
 \end{table}
 
-Podemos además ver el diagrama de Gantt en la figura~\ref{fig:gantt}. También tenemos el diagrama de precedencias en la figura~\ref{fig:web}.
+\begin{table}[h]
+	\centering
+	\caption{Cargas del trabajo del proyecto.}\label{tab:work}
+	\begin{tabular}{cc}
+		\toprule
+		\textbf{Perfil} & \emph{Horas previstas} \\
+		\midrule
+		Jefe de proyecto			&	26 horas	\\
+		Programador					&	168 horas	\\
+		Diseñador					&	60 horas	\\
+		Experto en WebLab-Deusto	&	96 horas	\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Podemos además ver el diagrama de Gantt en la figura~\ref{fig:gantt}. También tenemos el diagrama de
+precedencias en la figura~\ref{fig:web}.
 
 \begin{figure}
 	\centering
