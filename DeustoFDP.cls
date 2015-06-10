@@ -32,7 +32,7 @@
   \setlist[description,3]{font=\normalfont\itshape}
 
 \RequirePackage{fancyhdr}               % Package for defining page header and footer
-  \fancypagestyle{plain}{                 % We redefine the page style at the begining of new chapterss
+  \fancypagestyle{plain}{               % We redefine the page style at the begining of new chapterss
     \fancyhf{}
     \fancyfoot[LE,RO]{\thepage}
     \renewcommand{\headrulewidth}{0pt}
