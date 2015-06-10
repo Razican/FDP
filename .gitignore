@@ -12,3 +12,8 @@
 *.bbl
 *.blg
 *.pyg
+*.acn
+*.acr
+*.alg
+*.glsdefs
+*.ist
