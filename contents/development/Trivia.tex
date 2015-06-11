@@ -1,10 +1,60 @@
 \section{Trivia Game}
 
-TODO: Trivia Game
+The first modality of the game is a trivia-type game, that will use Romie, the robot in
+WebLab-Deusto and its labyrinth to create an experience for learning general knowledge. Moreover,
+since the trivia questions will be configurable, so that the game can be adapted.
 
-\subsection{Software Requirements}
+\subsection{Software and Hardware Requirements}
+
+This software will have tight requirements in terms of user-friendliness, communication stability
+and security, since it must be developed using as far as possible current hardware and be easy to
+use by young students. Moreover, since it will be presented in crowded events, it must support high
+load and availability.
+
+Furthermore, due to the requirements of the project, it must be integrated with the WebLab-Deusto
+platform and must be deployable in that environment. Thus, the requirements specification will be
+as it follows:
+
+\subsubsection{Software requirements:}
+
+\begin{itemize}
+	\item The software must be able to communicate with the robot.
+	\item The software must be able to send control commands to the robot.
+	\item The software must be able to receive command results from the robot.
+	\item The software must be integrated in the WebLab-Deusto platform as a new experiment.
+	\item The software must have an easy to use user interface based on human-computer interaction
+	principles.
+	\item The software must be stable enough to support tens of accesses per hour.
+	\item The software must provide enough questions so that the user never finishes with them and
+	can be randomly selected.
+	\item The game must increase difficulty as the user gets more points.
+	\item The game must finish in less than 15 minutes.
+	\item A ranking must be provided after finishing the game for the user to know its ranking.
+\end{itemize}
+
+\subsubsection{Hardware requirements:}
+
+\begin{itemize}
+	\item The hardware must be placed in WebLab-Deusto.
+	\item The robot must never get blocked, so in the case of an incident it must be automatically
+	recovered.
+	\item The cameras must be accessible from the Internet.
+	\item The robot must be controlled via Bluetooth.
+	\item The robot must never run out of power.
+	\item The robot must be able to read all the \acrshort{rfid} tags with at least 99~\% accuracy.
+	\item The robot must use the current labyrinth in WebLab-Deusto.
+	\item No new hardware can be added to the current WebLab server (Plunder).
+\end{itemize}
 
 \subsection{Design Specification}
+
+Taking into account the previous requirements, it has been decided to do a small hardware redesign
+and a complete software design for the project. We will now see the hardware and software design
+specifications.
+
+\subsubsection{Hardware Specification}
+
+
 
 \subsection{Deployment Considerations}
 

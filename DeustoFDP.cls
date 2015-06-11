@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[1999/01/01]
-\ProvidesClass{DeustoFDP}[2015/03/02 v0.2 Final Degree Proyect template for University of Deusto]
+\ProvidesClass{DeustoFDP}[2015/03/02 v0.2 Final Degree Project template for University of Deusto]
 
 \LoadClass[a4paper,10pt]{book}          % We are using the template book as our base
 
