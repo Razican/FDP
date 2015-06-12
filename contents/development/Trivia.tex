@@ -54,9 +54,31 @@ specifications.
 
 \subsubsection{Hardware Specification}
 
+Current robot is deployed with a simple \acrshort{rfid} reader (model ID-12) not capable of reading
+further than 120mm~\cite{rfid}, which generates some reading inconsistencies from the distance the
+sensor is located in the robot (about 100-120mm from the ground). For that reason, it has been
+decided to use a new module, the new module will be model ID-20LA. This will give the robot a much
+higher reliability when reading \acrshort{rfid} tags, since the range of the new sensor is
+180mm~\cite{rfid}.
 
+On the other hand, there is currently an issue with the availability of the robot. It is powered
+with a 2Ah \acrshort{lipo} battery, and is recharged when needed. This has a big issue, since as we
+have seen, in high load conditions would not meet the required availability, and furthermore, in
+weekends or holidays, we will not be able to change and recharge the battery, so it has been decided
+to deploy a cable installation from the roof of the ceiling of the laboratory, and the design of the
+robot has been adapted so that the cables do not get stuck in the labyrinth.
+
+The rest of the robot will be used as it is, since it provides with the needed capabilities for the
+needs of the project: It has a wall sensor capable of avoiding crashes with walls, infrared sensors
+to detect the lines in the ground, motors and wheels capable of moving the robot, Bluetooth
+connection to communicate with it and Arduino microcontroller, to install the needed firmware. It
+also provides
+
+\subsubsection{Software Specification}
 
 \subsection{Deployment Considerations}
+
+TODO: Rasp, bluetooth, wifi, cammeras, weblabtest...
 
 \subsection{Testing Plan}
 
