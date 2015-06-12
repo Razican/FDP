@@ -76,6 +76,48 @@ also provides
 
 \subsubsection{Software Specification}
 
+The software in for this implementation will be divided modularly, thinking on scalability and
+code reuse. The application must be built on top of WebLab-Deusto, so we will use as much as
+possible the provided \acrshort{api}s. Moreover, and due to deployment needs, the software will be
+divided between the robot, an intermediate server and WebLab software.
+
+The robot will use a slightly modified version of the current firmware, since we need it not to get
+blocked by any wall in case of crash and we need a more reliable implementation. Nevertheless, the
+external Bluetooth \acrshort{api} will be the same as the one that was already implemented at the
+beginning of the project.
+
+The intermediate server will provide a small \acrshort{rest} \acrshort{api} in a small Python
+server. Its only duty will be to provide a simple interface for the robot using \acrshort{http}
+instead of Bluetooth, needed due to deployment constraints.
+
+Then, the experiment server required by the WebLab-Deusto architecture, will provide a WebLab
+command \acrshort{api}, that will be callable by the client of the experiment. This server will be
+developed in Python because the WebLab server libraries are better intended for this language.
+
+Finally, the client will be developed using \acrshort{html} 5, JavaScript (using JQuery library) and
+Bootstrap for a rapid development. It will use the WebLab JavaScript library to communicate with the
+experiment server. This library is an asynchronous AJAX library that provides a simple interface to
+interact with experiments. We can see an example in algorithm~\ref{alg:weblab_lib}.
+
+\begin{center}
+\begin{minipage}{.6\textwidth}
+\singlespace
+\begin{pyglist}[language=javascript, caption={WebLab JavaScript library example.},
+	label={alg:weblab_lib}, listingname={Algorithm}, numbers=left]
+// Callback registration that will be
+// called after reserving the experiment
+Weblab.setOnStartInteractionCallback(start);
+
+// Sending command to the experiment server
+Weblab.sendCommand("L", function(response) {
+    console.log("Good response: " + response);
+}, function(response) {
+    console.log("Bad response: " + response);
+});
+\end{pyglist}
+\end{minipage}
+\end{center}
+
 \subsection{Deployment Considerations}
 
 TODO: Rasp, bluetooth, wifi, cammeras, weblabtest...

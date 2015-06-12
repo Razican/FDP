@@ -66,10 +66,6 @@
 \RequirePackage{graphicx}               % Package for including images
 \RequirePackage{booktabs}               % Package for doing professional tables
 \RequirePackage{subcaption}             % Packages for doing sub-captions
-\RequirePackage{listings}               % Package for inputing source code
-
-\renewcommand\lstlistingname{Algorithm} % Source code personalization
-\renewcommand\lstlistlistingname{Algorithm Index}
 
 \RequirePackage{etoolbox}
 \RequirePackage{tocbibind}              % Package for including different indexes in the index

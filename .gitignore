@@ -17,3 +17,6 @@
 *.alg
 *.glsdefs
 *.ist
+*.lst
+*.sty
+*.vrb
