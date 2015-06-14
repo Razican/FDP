@@ -1,4 +1,4 @@
-\chapter{Objectives and Scope}
+\chapter{Goals and Scope}
 
 The platform will integrate sophisticate hardware and software elements that allow us to deploy a
 remote controlled robot so that it can be used by students in a game platform using the provided
@@ -10,6 +10,8 @@ modifications of the robot), knowledge about communication protocols (\acrshort{
 engineering (for the develoment of the client and the interaction with the WebLab-Deusto platform)
 and user interface design knowledge for creating a user-friendly interface taking into account the
 requirements asked by \acrshort{fecyt} Remote Science.
+
+\section{Project Definition}
 
 The secondary objectives of the project will be the following:
 \begin{itemize}
@@ -79,3 +81,171 @@ A complete report will be generated to learn from the use statistics. This will 
 information on how to improve the game.
 
 \end{itemize}
+
+\section{Description of the embodiment}
+
+\subsection{Development methodology}
+
+\begin{figure}
+	\centering
+	\includegraphics[height=0.9\textwidth, angle=-90]{fig/wbs}
+	\caption{Project's \acrlong{wbs}.}\label{fig:wbs}
+\end{figure}
+
+In the project's \acrshort{wbs} (figure~\ref{fig:wbs}) we can see how the project will be developed,
+and how the task will be divided. As we can see in the \acrshort{wbs}, the phases of the project
+will be the following:
+
+\begin{itemize}
+\item \textbf{Requirements}: Project's requirements analysis, in which functional and aesthetic
+requirements will be determined.
+
+\item \textbf{Design}: Comprehensive design of the project, both functional and aesthetic, to define
+the final product.
+
+\item \textbf{First game mode development}: The first intermediate product will be developed, and it
+will be integrated in the WebLab-Deusto platform. This game will be a trivia type game.
+
+\item \textbf{Labpsico experiment integration}: An experiment provided by the University of Deusto's
+psychology laboratory, Labpsico, will be integrated with the first game mode.
+
+\item \textbf{Second game mode development}: The second game mode will be developed, based on visual
+programming, to teach computing logic.
+
+\item \textbf{Public demonstration}: A public demonstration will be performed to test the viability
+and reliability of the project with students.
+\end{itemize}
+
+\subsection{Intermediate products}
+
+These will be the intermediate products that the project will produce:
+
+\begin{itemize}
+\item \textbf{First game mode}: This game mode will be a trivia game, where the user will move the
+robot in a labyrinth and will have to replay questions in specific location.
+
+\item \textbf{First game mode with Labpsico experiment}: The same game mode as the one before will
+be modified to accommodate the experiment provided by Labpsico, based on a psicology experiment
+to fight against pseudoscience.
+
+\item \textbf{Second game mode}: A second game mode will be created where users will be able to
+program actions to the robot and make it move around the labyrinth.
+\end{itemize}
+
+\subsection{Main tasks}
+
+\subsubsection{Requirements}
+
+\begin{itemize}
+\item \textbf{T1 - Logical requirements analysis}: A detailed analysis will be performed to
+understand all the functional requirements of the platform. That way we will be able to track them
+and check its fulfillment.
+
+\item \textbf{T2 - Aesthetic requirements analysis}: A detailed analysis will be performed to
+understand all the aesthetic requirements of the platform. That way we will be able to track them
+and check its fulfillment.
+\end{itemize}
+
+\subsubsection{Design}
+
+\begin{itemize}
+\item \textbf{T3 - Internal logic design}: The internal logic of the robot and the control platform
+have to be designed in thinking on accessibility, stability and simplicity.
+
+\item \textbf{T4 - User interface design}: The \acrlong{ui} of the platform has to be designed
+thinking on the final user, so that the robot is easy to control.
+\end{itemize}
+
+\subsubsection{First game mode development}
+
+\begin{itemize}
+\item \textbf{T5 - Logic development}: The internal logic of the trivia game will be developed
+thinking always on the modularity and extensibility.
+
+\item \textbf{T6 - User interface development}: A \acrlong{ui} will be developed taking into account
+usability standards to use the robot and answer questions.
+
+\item \textbf{T7 - Integration in WebLab-Deusto}: The game platform will be integrated in
+WebLab-Deusto using its queue and priority management systems.
+\end{itemize}
+
+\subsubsection{Labpsico experiment integration}
+
+\begin{itemize}
+\item \textbf{T8 - Meeting and joint decision making}: We will have a meeting with the psychology
+laboratory of the University of Deusto, Labpsico, where we will decide how to integrate their
+experiment with the first game mode.
+
+\item \textbf{T9 - Labpsico experiment adaptation}: The experiment provided by Labpsico will be
+adapted to make sense in the experiment with the robot.
+
+\item \textbf{T10 - Integration with first game mode}: The experiment will be integrated with the
+existing platform with the robot using the interface created for the first game mode.
+
+\item \textbf{T11 - Integration in WebLab-Deusto}: The new game will be integrated in WebLab-Deusto
+using its queue and priority management systems.
+\end{itemize}
+
+\subsubsection{Second game mode development}
+
+\begin{itemize}
+\item \textbf{T12 - Existing technology analysis}: A detailed analysis will be performed to decide
+which visual programming tool will be the one used for this game mode.
+
+\item \textbf{T13 - Module creation}: The modules needed for controlling the robot will be created.
+
+\item \textbf{T14 - Logic development}: The game logic will be developed so that the program created
+by the user can control the robot.
+
+\item \textbf{T15 - User interface development}: A simple \acrlong{ui} will be developed to be able
+to use all the functions of the visual programming mode.
+
+\item \textbf{T16 - Integration in WebLab-Deusto}: The visual programming environment will be
+integrated in WebLab-Deusto using its queue and priority management systems.
+\end{itemize}
+
+\subsubsection{Public demonstration}
+
+\begin{itemize}
+\item \textbf{T17 - Public demonstration}: At least one public demonstration of the robot will be
+performed during its development where students will try it and play with it.
+\end{itemize}
+
+\section{Organization}
+
+\subsection{Organizational structure}
+
+The working team, as it can be seen in the figure~\ref{fig:org}, it will be organized in a direction
+committee, that will be in charge of the good progress of the project, as well as of indicating
+the possible needed changes, and in a development team, that will be in charge of developing the
+project. Moreover, in the integration of the Labpsico experiment, the Labpsico team will be part of
+the project organization team to validate the progress.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{fig/organization}
+	\caption{Project's organization schema.}\label{fig:org}
+\end{figure}
+
+\subsection{Human resources plan}
+
+The workday will be part time, 4 hours and we will only have one resource, that will be divided into
+the following profiles:
+
+\begin{itemize}
+\item One \textbf{project manager}: he will be the person in charge of organizing the project.
+
+\item One \textbf{programmer}: he will be the person in charge of developing the logic of the
+software.
+
+\item One \textbf{designer}: he will be the person in charge of designing and creating a
+\acrlong{ui} intuitive and simple.
+
+\item One \textbf{WebLab-Deusto expert}: he will be in charge of the integration of the experiment
+in WebLab-Deusto.
+\end{itemize}
+
+Regular meetings will be done, at least twice a month to track the project progress. To validate the
+various modules of the application, we will check if the established requirements are met, and
+volunteers of the team will perform the needed testing. The organization of the working team will
+not be hierarchical but rather horizontal, to allow a much more agile development.
