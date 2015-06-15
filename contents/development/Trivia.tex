@@ -55,11 +55,10 @@ specifications.
 \subsubsection{Hardware Specification}
 
 Current robot is deployed with a simple \acrshort{rfid} (\acrlong{rfid}) reader (model ID-12) not
-capable of reading further than 120~mm~\cite{rfid}, which generates some reading inconsistencies from
-the distance the sensor is located in the robot (about 100-120~mm from the ground). For that reason,
-it has been decided to use a new module, the new module will be model ID-20LA
+capable of reading further than 120~mm~\cite{rfid}, which has shown some issues when reading the
+\acrshort{rfid} tags. For that reason, it has been decided to use a new module, the model ID-20LA
 (figure~\ref{fig:rfid}). This will give the robot a much higher reliability when reading
-\acrshort{rfid} tags, since the range of the new sensor is 180~mm~\cite{rfid}.
+\acrshort{rfid} tags, and the range of the new sensor is 180~mm~\cite{rfid}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -363,9 +362,9 @@ insufficient. We solved it by painting all the labyrinth in white and adding the
 painting them. That way we did not need to use tape and the robot started to work properly.
 
 Other issue we found was that the robot did not read the \acrshort{rfid} tags every time it went on
-top of them. The problem was that the \acrshort{rfid} reader we were using, the ID-12 had only
-120~mm of range~\cite{rfid}, and the robot had about 100-120~mm between the floor and the reader.
-We decided to change it by a ID-20 reader, that has a 180~mm range~\cite{rfid} and worked perfectly.
+top of them. The problem was that the \acrshort{rfid} reader we were using, the ID-12 seemed to have
+some working issues, since the reader was located about 10-15~mm from the floor. We decided to
+change it by a ID-20 reader, that has a 180~mm range~\cite{rfid} and worked perfectly.
 
 Furthermore, we had the problem with electricity, that it was using batteries, and as we have seen
 above, we had to change it to cables. The main issue was that the cables would get entangled with
