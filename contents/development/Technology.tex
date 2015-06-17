@@ -34,8 +34,11 @@ all the programming (except the Arduino script) has been Sublime Text 3 (figure~
 \end{figure}
 
 Nevertheless, since the robot's microcontroller is an Arduino, the Arduino
-\acrshort{ide}~\cite{arduino_web} (figure~\ref{fig:arduino}) has been used to program the robot itself,
-since it is simple and easy to use for this simple task.
+\acrshort{ide}~\cite{arduino_web} (figure~\ref{fig:arduino}) has been used to program the robot
+itself, since it is simple and easy to use for this simple task. For some specific situations such
+as small testing changes made in the project's Raspberry Pi or testing server configuration Nano
+has been used since it provides a simple console interface easy to use when connecting via
+\acrshort{ssh} (\acrlong{ssh}).
 
 \begin{figure}[!htbp]
 	\centering
@@ -46,11 +49,76 @@ since it is simple and easy to use for this simple task.
 
 \subsection{User interface testing}
 
-TODO: Chrome (+ developer tools), Firefox
+Since one of the key points of the project has been the user interface and in overall the web client
+of the system, this needed to be tested. For this task, two main web browsers have been used:
+Mozilla Firefox~\cite{firefox_web} (figure~\ref{subfig:firefox}) and Google Chrome~\cite{chrome_web}
+(figure~\ref{subfig:chrome}). Here, it has been found that Google Chrome's developer tools have
+helped the development more, thanks to their features and ease of use. We can see a screenshot of
+Google Chrome's developer tools in figure~\ref{fig:chrome_dev}.
 
-\subsection{Server configuration}
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{fig/firefox}
+		\caption{Mozilla Firefox logo.}\label{subfig:firefox}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{fig/chrome}
+		\caption{Google Chrome's logo.}\label{subfig:chrome}
+	\end{subfigure}\quad
+	\caption{Web browsers used for testing.}
+\end{figure}
 
-TODO: SSH/console
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.95\textwidth]{fig/chrome-dev}
+	\caption{Google Chrome's developer tools.}
+	\label{fig:chrome_dev}
+\end{figure}
+
+\subsection{Operating system and tools}
+
+For the development, the \acrlong{os} used has been Ubuntu \acrshort{gnome}~\cite{ubuntu_gnome_web}
+(figure~\ref{subfig:ubuntu_gnome}). This distribution gives all the needed productivity and user
+friendliness. The user interface used has been \acrshort{gnome} Shell, and as far as possible, it
+has been tried to use only \acrshort{floss} software (\acrlong{floss}).
+
+Moreover, for the server environments two main operating systems have been used: Ubuntu
+Server~\cite{ubuntu_web} (figure~\ref{subfig:ubuntu}) and Raspbian~\cite{raspbian_web}, the
+Raspberry Pi \acrshort{arm} compatible Debian~\cite{debian_web} distribution
+(figure~\ref{subfig:debian}). The first of the two has been used for main WebLab-Deusto servers. It
+is used due to its user friendliness, even if being a \acrshort{cli} interface (\acrlong{cli}). The
+second one has been used due to its compatibility with the hardware being used for the project, the
+Raspberry Pi computer.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.75\textwidth]{fig/ubuntu-gnome}
+		\caption{Ubuntu \acrshort{gnome} logo.}\label{subfig:ubuntu_gnome}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.75\textwidth]{fig/ubuntu}
+		\caption{Ubuntu logo.}\label{subfig:ubuntu}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.3\textwidth}
+		\centering
+		\includegraphics[width=0.75\textwidth]{fig/debian}
+		\caption{Debian logo.}\label{subfig:debian}
+	\end{subfigure}\quad
+	\caption{Operating systems used in this project.}
+\end{figure}
+
+In all cases, the communication between the various servers has been done via \acrshort{ssh}, since
+it provides an easy interface with the consoles of the servers.
+
+\subsection{Version control}
+
+TODO: Git, GitHub, SVN
 
 \section{Technology}
 
