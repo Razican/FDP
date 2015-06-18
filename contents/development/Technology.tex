@@ -1,3 +1,53 @@
+\section{Technology}
+
+In this section we will analyze the technology and tools used for this project. The technology has
+been divided between hardware and software, since in this project, both aspects have had big impact.
+
+\subsection{Hardware}
+
+In this case, the hardware has been divided in mainly two parts. First of all, the hardware used by
+the robot itself, has been the Arduino Uno microcontroller (figure~\ref{fig:arduino_board}. This
+microcontroller provides the ATmega328 microcontroller with 14 digital input/output pins, 6 analog
+inputs and a \acrshort{usb} connector~\cite{arduino_datasheet}.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[height=0.3\textheight]{fig/arduino-board}
+	\caption{Arduino Uno microcontroler.}
+	\label{fig:arduino_board}
+\end{figure}
+
+The hardware attached to the Arduino Uno is mainly the same it had when the project started. A
+\emph{E18-D80NK} infrared adjustable sensor for wall sensing, \emph{MSE-S110.2} sensors for
+following the line, a \emph{Grove Line Finder} for detecting intersections, a
+\emph{BT Board v1.02} Bluetooth adapter for Bluetooth communication~\cite{fdp_itu}. The
+\acrshort{rfid} reader, on the other hand, and as we have seen before, has been changed by an
+ID-20~\cite{rfid} sensor, since the ID-12 we had was not working properly.
+
+For the \acrshort{http} server, a Raspberry Pi model B has been used. The reason for not using the
+model B+ or the Raspberry Pi 2 model B has been that we already had an unused Raspberry Pi model B
+in WebLab-Deusto. and this hardware was enough to provide the services needed by this project. This
+computer has been used as a client connected via Bluetooth to the robot and as a server connected
+via Ethernet to the WebLab-Deusto network. Raspberry Pi foundation (figure~\ref{fig:rasp_logo})
+develops these tiny computers to teach kids about computers and programming in a very affordable
+way.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.2\textwidth]{fig/rasp-logo}
+	\caption{Raspberry Pi logo.}
+	\label{fig:rasp_logo}
+\end{figure}
+
+\subsection{Software}
+
+In this project, since we have integrated many hardware and software technologies, we have used many
+software platform and languages. Some of them were new, while others were known. The core
+functionality of the project has been developed in JavaScript for the client side and Python for the
+server side.
+
+TODO: Python, HTML 5, JavaScript, WebLab, JSON, HTTP, REST, Bluetooth,
+
 \section{Tools}
 
 \subsection{Code editor}
@@ -21,31 +71,33 @@ but currently it is still in an unstable release. Microsoft Visual Studio Code w
 this year and it did not have any benefit with respect to Sublime Text, so it was worthless changing
 the editor at this point.
 
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.35\textwidth}
+		\centering
+		\includegraphics[width=0.6\textwidth]{fig/sublime}
+		\caption{Sublime Text logo.}\label{subfig:sublime}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.55\textwidth}
+		\centering
+		\includegraphics[width=0.7\textwidth]{fig/arduino-community}
+		\caption{Arduino Community logo. \emph{Source: Arduino}}\label{subfig:arduino_community}
+	\end{subfigure}\quad
+	\caption{Code editors used.}
+\end{figure}
+
 On the other hand, \acrshort{ide}s are big softwares that from my point of view interfere in the
 programming process. In the end, this is about feeling comfortable with the tool, and the velocity
 and simplicity offered by editors outperform \acrshort{ide}s greatly. That is why the tool used for
-all the programming (except the Arduino script) has been Sublime Text 3 (figure~\ref{fig:sublime}).
-
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.3\textwidth]{fig/sublime}
-	\caption{Sublime Text logo.}
-	\label{fig:sublime}
-\end{figure}
+all the programming (except the Arduino script) has been Sublime Text 3
+(figure~\ref{subfig:sublime}).
 
 Nevertheless, since the robot's microcontroller is an Arduino, the Arduino
-\acrshort{ide}~\cite{arduino_web} (figure~\ref{fig:arduino}) has been used to program the robot
-itself, since it is simple and easy to use for this simple task. For some specific situations such
-as small testing changes made in the project's Raspberry Pi or testing server configuration Nano
-has been used since it provides a simple console interface easy to use when connecting via
-\acrshort{ssh} (\acrlong{ssh}).
-
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.6\textwidth]{fig/arduino}
-	\caption{Arduino Community logo. \emph{Source: Arduino}}
-	\label{fig:arduino}
-\end{figure}
+\acrshort{ide}~\cite{arduino_ide} (figure~\ref{subfig:arduino_community}) has been used to program
+the robot itself, since it is simple and easy to use for this simple task. For some specific
+situations such as small testing changes made in the project's Raspberry Pi or testing server
+configuration Nano has been used since it provides a simple console interface easy to use when
+connecting via \acrshort{ssh} (\acrlong{ssh}).
 
 \subsection{User interface testing}
 
@@ -97,17 +149,17 @@ Raspberry Pi computer.
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\centering
-		\includegraphics[width=0.75\textwidth]{fig/ubuntu-gnome}
+		\includegraphics[width=0.6\textwidth]{fig/ubuntu-gnome}
 		\caption{Ubuntu \acrshort{gnome} logo.}\label{subfig:ubuntu_gnome}
 	\end{subfigure}\quad
 	\begin{subfigure}{0.3\textwidth}
 		\centering
-		\includegraphics[width=0.75\textwidth]{fig/ubuntu}
+		\includegraphics[width=0.6\textwidth]{fig/ubuntu}
 		\caption{Ubuntu logo.}\label{subfig:ubuntu}
 	\end{subfigure}\quad
 	\begin{subfigure}{0.3\textwidth}
 		\centering
-		\includegraphics[width=0.75\textwidth]{fig/debian}
+		\includegraphics[width=0.5\textwidth]{fig/debian}
 		\caption{Debian logo.}\label{subfig:debian}
 	\end{subfigure}\quad
 	\caption{Operating systems used in this project.}
@@ -129,19 +181,13 @@ requests, simple and effective.
 	\centering
 	\begin{subfigure}{0.6\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{fig/git.eps}
+		\includegraphics[width=0.6\textwidth]{fig/git.eps}
 		\caption{Git logo.}\label{subfig:git}
 	\end{subfigure}\quad
 	\begin{subfigure}{0.3\textwidth}
 		\centering
-		\includegraphics[width=0.8\textwidth]{fig/github}
+		\includegraphics[width=0.55\textwidth]{fig/github}
 		\caption{GitHub's octocat logo.}\label{subfig:github}
 	\end{subfigure}\quad
 	\caption{Tools and services used for version control.}
 \end{figure}
-
-\section{Technology}
-
-In this section we will analyze the technology and tools used for this project.
-
-TODO: Hardware/software: Raspberry, Python, HTML 5, JavaScript, JSON, HTTP, REST, Bluetooth,
