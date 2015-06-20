@@ -24,7 +24,7 @@ as it follows:
 	\item The software must be integrated in the WebLab-Deusto platform as a new experiment.
 	\item The software must have an easy to use user interface based on human-computer interaction
 	principles.
-	\item The software must be stable enough to support tens of accesses per hour.
+	\item The software must be stable enough to support dozens of accesses per hour.
 	\item The software must provide enough questions so that the user never finishes with them and
 	can be randomly selected.
 	\item The game must increase difficulty as the user gets more points.
@@ -97,7 +97,26 @@ a big space.
 The software in for this implementation will be divided modularly, thinking on scalability and
 code reuse. The application must be built on top of WebLab-Deusto, so we will use as much as
 possible the provided \acrshort{api}s. Moreover, and due to deployment needs, the software will be
-divided between the robot, an intermediate server and WebLab software.
+divided between the robot, an intermediate server and WebLab software. In figure~\ref{fig:exp_flow}
+we can see the flow chart for the experiment. This will be the user's flow in the application. In
+figure~\ref{fig:layers} we can see the software layers, each one with its functions.
+
+\clearpage
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\textwidth]{fig/experiment-flow}
+	\caption{Experiment flow chart.}
+	\label{fig:exp_flow}
+\end{figure}
+
+\clearpage
+\begin{figure}
+	\centering
+	\includegraphics[width=0.95\textwidth]{fig/layers}
+	\caption{Software layers showing each layer's functionality.}
+	\label{fig:layers}
+\end{figure}
+\clearpage
 
 The robot will use a slightly modified version of the current firmware, since we need it not to get
 blocked by any wall in case of crash and we need a more reliable implementation. That is why it has
@@ -119,36 +138,91 @@ a 90 degree turn right and face the path in its right. When the robot stops on t
 The intermediate server will provide a small \acrlong{rest} (\acrshort{rest}) \acrshort{api} in a
 small Python server. Its only duty will be to provide a simple interface for the robot using
 \acrshort{http} instead of Bluetooth, needed due to deployment constraints. We can see an example of
-the \acrshort{api} usage with Python in algorithm~\ref{alg:romie_rasp}.
+the \acrshort{api} usage with Python in algorithm~\ref{alg:romie_rest}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
 \singlespace
+\fvset{frame=single}
 \begin{pyglist}[language=python, caption={Romie \acrshort{rest} \acrshort{api} example.},
-	label={alg:romie_rasp}, listingname={Algorithm}, numbers=left]
+	label={alg:romie_rest}, listingname={Algorithm}, numbers=left]
 import urllib2
 
 # Let's go forward and get RFID tag if exists
-tag = urllib2.urlopen('http://192.168.0.190:8000/f', timeout = 60).read()
+tag = urllib2.urlopen('http://192.168.0.190:8000/f',
+    timeout = 60).read()
 
 # Let's turn left
-result = urllib2.urlopen('http://192.168.0.190:8000/l', timeout = 60).read()
+result = urllib2.urlopen('http://192.168.0.190:8000/l',
+    timeout = 60).read()
 
 # Let's turn right
-result = urllib2.urlopen('http://192.168.0.190:8000/r', timeout = 60).read()
+result = urllib2.urlopen('http://192.168.0.190:8000/r',
+    timeout = 60).read()
 
 # Let's check if we have a wall in front of us
-result = urllib2.urlopen('http://192.168.0.190:8000/s', timeout = 60).read()
+result = urllib2.urlopen('http://192.168.0.190:8000/s',
+    timeout = 60).read()
 \end{pyglist}
+\fvset{frame=none}
 \end{minipage}
 \end{center}
+
+This \acrshort{rest} \acrshort{api} is connected to the robot via Bluetooth and sends commands with
+the PyBluez Bluetooth wrapper, as we can see in algorithm~\ref{alg:rasp_bluetooth}. This way, with
+the software layered, the development is not only faster and easier, but the product is more
+scalable and modular.
 
 Then, the experiment server required by the WebLab-Deusto architecture, will provide a WebLab
 command \acrshort{api}, that will be callable by the client of the experiment. This server will be
 developed in Python because the WebLab server libraries are better intended for this language. The
 data for the ranking will be stored in a SQLite 3 database. This database provides all the needed
-\acrshort{acid} constraints (\acrlong{acid}) with a small \acrshort{sql} (\acrlong{sql}) a
+\acrshort{acid} constraints (\acrlong{acid}) with a small \acrshort{sql} (\acrlong{sql})
 \acrlong{rdbms} (\acrshort{rdbms})~\cite{sqlite}.
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=python, caption={Bluetooth connection example.},
+	label={alg:rasp_bluetooth}, listingname={Algorithm}, numbers=left]
+try:
+    import bluetooth
+
+    BT_address = '00:11:22:33:44:55'
+    BT_port = 1
+
+    BT_socket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    BT_socket.connect((BT_address, BT_port))
+
+    BT_available = True
+except:
+    BT_available = False
+    print 'No bluetooth device is available'
+
+class RoMIE:
+    def _wait_ack(self):
+        if not BT_available: return
+
+        # we read until we read ACK or NAK
+        received = ''
+        while 'ACK' not in received and 'NAK' not in received:
+            received += BT_socket.recv(1024)
+        if 'NAK' in received:
+            pass
+
+        return received
+
+    def forward(self):
+        if not BT_available: return 'Bluetooth error'
+
+        BT_socket.send('F')
+        response = self._wait_ack()
+        return response
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
 
 The experiment server \acrshort{api} will have all the needed commands to use the experiment. For
 the ones that need data being sent to the server, \acrshort{json} has been used (\acrlong{json}). It
@@ -184,6 +258,7 @@ an example in algorithm~\ref{alg:weblab_lib}.
 \begin{center}
 \begin{minipage}{.9\textwidth}
 \singlespace
+\fvset{frame=single}
 \begin{pyglist}[language=javascript, caption={WebLab JavaScript library example.},
 	label={alg:weblab_lib}, listingname={Algorithm}, numbers=left]
 // Callback registration that will be
@@ -192,15 +267,59 @@ Weblab.setOnStartInteractionCallback(start);
 
 // Sending command to the experiment server
 Weblab.sendCommand("L", function(response) {
-    console.log("Good response: " + response);
+	console.log("Good response: " + response);
 }, function(response) {
-    console.log("Bad response: " + response);
+	console.log("Bad response: " + response);
 });
 \end{pyglist}
+\fvset{frame=none}
 \end{minipage}
 \end{center}
 
-TODO: Software design graphic (experiment flow chart)
+The game logic is divided between the server and the client. Since the client is manipulable, all
+the data is stored in the server and the game cannot be manipulated from client side. This logic
+includes the point logic, which has a small bonus depending on when has the last correct answer been
+given and the difficulty of the question. We can see an example of this bonus calculation in the
+algorithm~\ref{alg:point_bonus}. As it can be seen, the bonus will be a time bonus (the number of
+seconds less than 30 since the last correct answer) divided by 5 and multiplied by the difficulty of
+the question divided by 10.
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=python, caption={Point bonus calculation.},
+	label={alg:point_bonus}, listingname={Algorithm}, numbers=left]
+if correct:
+    time_bonus = 30-(time.time()-self.last_correct)
+    bonus = (self.q_difficulty/10+1)*(time_bonus/5 if time_bonus > 5 else 1)
+    self.last_correct = time.time()
+    self.points += self.question['points']*bonus
+    self.finish_time += self.question['time']*bonus
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
+After the point calculation, the points in the database get updated. That way, if the user
+disconnects from WebLab, or some other issue happens, the points will be saved. Only the best
+score is saved. Moreover, and since that database is used for saving the data from the registration
+form, which is provided by the user, prepared statements are used in order to avoid \acrshort{sql}
+injection attacks.
+
+The game configuration, containing all the questions with their bonuses, the \acrshort{rest}
+\acrshort{api} server's \acrshort{ip} and port and all the needed configuration for the display such
+as if it is a demonstration environment or needs to show some other client side experiment is stored
+in a python file in the experiment server. That way, modifying questions or anything that could be
+needed, such as creating debug experiments is managed with that simple configuration script, which
+allows for scalability.
+
+Furthermore, since this experiment uses a hardware resource (Romie, the robot), it could happen that
+two users try to play with it at the same time. This is solved using the queue management provided
+by WebLab. We only have to register the resource's priority queue and WebLab will do all the needed
+resource sharing. Moreover, in the case of having two separate robots of the same type, it would not
+be difficult to use the federation model and the user would end up in one of the two robots
+transparently.
 
 \subsection{Deployment Considerations}
 
@@ -366,11 +485,6 @@ top of them. The problem was that the \acrshort{rfid} reader we were using, the 
 some working issues, since the reader was located about 10-15~mm from the floor. We decided to
 change it by a ID-20 reader, that has a 180~mm range~\cite{rfid} and worked perfectly.
 
-Furthermore, we had the problem with electricity, that it was using batteries, and as we have seen
-above, we had to change it to cables. The main issue was that the cables would get entangled with
-the walls. We solved it by extending a flexible artifact in top of the robot
-(figure~\ref{fig:lines}).
-
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[height=0.35\textheight]{fig/lines}
@@ -378,15 +492,15 @@ the walls. We solved it by extending a flexible artifact in top of the robot
 	\label{fig:lines}
 \end{figure}
 
-Finally, we had a problem with the wall sensor, since it would disconnect sometimes. This was a
-hardware issue that we could not solve easily, since the sensor would arrive at least 1 month after
-being requested. Taking that into account we decided to implement a software solution directly in
-the robot so that it would go back automatically if something went wrong, as we can see in
-algorithm~\ref{alg:romie_wall}.
+Furthermore, we had the problem with electricity, that it was using batteries, and as we have seen
+above, we had to change it to cables. The main issue was that the cables would get entangled with
+the walls. We solved it by extending a flexible artifact in top of the robot
+(figure~\ref{fig:lines}).
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
 \singlespace
+\fvset{frame=single}
 \begin{pyglist}[language=c, caption={Arduino code for returning if wall was hit.},
 	label={alg:romie_wall}, listingname={Algorithm}, numbers=left]
 if (millis()-lastTimeFollow >= 8000) {
@@ -396,5 +510,12 @@ if (millis()-lastTimeFollow >= 8000) {
 	lastTimeFollow=millis();
 }
 \end{pyglist}
+\fvset{frame=none}
 \end{minipage}
 \end{center}
+
+Finally, we had a problem with the wall sensor, since it would disconnect sometimes. This was a
+hardware issue that we could not solve easily, since the sensor would arrive at least 1 month after
+being requested. Taking that into account we decided to implement a software solution directly in
+the robot so that it would go back automatically if something went wrong, as we can see in
+algorithm~\ref{alg:romie_wall}.

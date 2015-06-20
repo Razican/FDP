@@ -67,7 +67,7 @@ They collaborate with many virtual laboratories, such as WebLab-Deusto, for inst
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.35\textwidth]{fig/golab}
+	\includegraphics[width=0.25\textwidth]{fig/golab}
 	\caption{\acrshort{golab} Project logo.}
 \end{figure}
 
@@ -96,30 +96,33 @@ WebLab-Bot (Figure~\ref{fig:weblab-bot}). This robot is based on Azkar-Bot robot
 electronic students to learn how to program it. They have simple demonstrations that follow a black
 line or respond to simple commands.
 
-\begin{figure}[!htbp]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{fig/weblab-bot}
-	\caption{WebLab-Bot, a robot based on Azkar-Bot as a remote laboratory in WebLab-Deusto.}
+	\caption{WebLab-Bot, a robot based on Azkar-Bot, a remote laboratory in WebLab-Deusto.}
 	\label{fig:weblab-bot}
 \end{figure}
 
 Moreover, in The Labshare Institute, they have a robot called iRobot, that teaches how to deal with
 accuracy of sensors, localization and mapping. Finally, the robot that will be used in this
-project is called Romie (Figure~\ref{fig:romie}. It is located in WebLab-Deusto and it has the
+project is called Romie (Figure~\ref{subfig:romie}). It is located in WebLab-Deusto and it has the
 needed functionality for this project: it is capable of following a line, it detects walls and it
 detects intersections. We have built a complete labyrinth for it where we will deploy this project
-(figure~\ref{fig:labyrinth}).
+(figure~\ref{subfig:labyrinth}).
 
-\begin{figure}[!htbp]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[height=0.3\textheight]{fig/romie}
-	\caption{Romie, the robot we will be using in this project in its labyrinth.}\label{fig:romie}
-\end{figure}
-
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.5\textwidth]{fig/labyrinth}
-	\caption{The labyrinth where Romie will have to move.}\label{fig:labyrinth}
+	\begin{subfigure}{0.35\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{fig/romie}
+		\caption{Romie, the robot.}\label{subfig:romie}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.55\textwidth}
+		\centering
+		\includegraphics[width=0.8\textwidth]{fig/labyrinth}
+		\caption{The labyrinth where Romie will have to move.}\label{subfig:labyrinth}
+	\end{subfigure}\quad
+	\caption{The robot that will be used in this project.}
 \end{figure}
 
 \subsubsection{Simulations}
@@ -171,7 +174,7 @@ so it contains basic programming blocks to build applications by joining them
 a simple \acrlong{api} or \acrshort{api}. It was created by Google and it's source is now available
 in GitHub.
 
-\begin{figure}[!htbp]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{fig/blockly}
 	\caption{Simple program example created in Google's Blockly.}\label{fig:blockly}
