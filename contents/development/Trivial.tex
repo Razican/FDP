@@ -256,17 +256,17 @@ overhead~\cite{xml_vs_json}.
 	\item ``\textbf{FINISH}'' command, to finish the experiment and receive the final ranking.
 \end{itemize}
 
-Finally, the client will be developed using \acrshort{html} 5 (\acrlong{html} version 5), JavaScript
-(using JQuery library) and Bootstrap for a rapid development. It will use the WebLab JavaScript
-library to communicate with the experiment server. This library is an asynchronous \acrshort{ajax}
-(\acrlong{ajax}) library that provides a simple interface to interact with experiments. We can see
-an example in algorithm~\ref{alg:weblab_lib}.
+Finally, the client will be developed using \acrshort{html} 5 (\acrlong{html} version 5),
+\acrlong{js} (using JQuery library) and Bootstrap for a rapid development. It will use the WebLab
+\acrlong{js} library to communicate with the experiment server. This library is an asynchronous
+\acrshort{ajax} (\acrlong{ajax}) library that provides a simple interface to interact with
+experiments. We can see an example in algorithm~\ref{alg:weblab_lib}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
 \singlespace
 \fvset{frame=single}
-\begin{pyglist}[language=javascript, caption={WebLab JavaScript library example.},
+\begin{pyglist}[language=javascript, caption={WebLab \acrlong{js} library example.},
 	label={alg:weblab_lib}, listingname={Algorithm}, numbers=left]
 // Callback registration that will be
 // called after reserving the experiment
@@ -274,9 +274,9 @@ Weblab.setOnStartInteractionCallback(start);
 
 // Sending command to the experiment server
 Weblab.sendCommand("L", function(response) {
-	console.log("Good response: " + response);
+    console.log("Good response: " + response);
 }, function(response) {
-	console.log("Bad response: " + response);
+    console.log("Bad response: " + response);
 });
 \end{pyglist}
 \fvset{frame=none}
@@ -299,7 +299,8 @@ the question divided by 10.
 	label={alg:point_bonus}, listingname={Algorithm}, numbers=left]
 if correct:
     time_bonus = 30-(time.time()-self.last_correct)
-    bonus = (self.q_difficulty/10+1)*(time_bonus/5 if time_bonus > 5 else 1)
+    bonus = (self.q_difficulty/10+1)*
+        (time_bonus/5 if time_bonus > 5 else 1)
     self.last_correct = time.time()
     self.points += self.question['points']*bonus
     self.finish_time += self.question['time']*bonus
@@ -511,10 +512,10 @@ the walls. We solved it by extending a flexible artifact in top of the robot
 \begin{pyglist}[language=c, caption={Arduino code for returning if wall was hit.},
 	label={alg:romie_wall}, listingname={Algorithm}, numbers=left]
 if (millis()-lastTimeFollow >= 8000) {
-	while(digitalRead(FLIline) == HIGH) Motors.turnRight(100);
-	while(digitalRead(FRIline) == LOW) Motors.turnRight(100);
-	FollowLine();
-	lastTimeFollow=millis();
+    while(digitalRead(FLIline) == HIGH) Motors.turnRight(100);
+    while(digitalRead(FRIline) == LOW) Motors.turnRight(100);
+    FollowLine();
+    lastTimeFollow=millis();
 }
 \end{pyglist}
 \fvset{frame=none}
@@ -570,3 +571,5 @@ the user that will be added to the game (figure~\ref{fig:labpsico_romie}).
 	\caption{Romie game with the Labpsico experiment.}
 	\label{fig:labpsico_romie}
 \end{figure}
+
+TODO: iframe

@@ -17,8 +17,169 @@ trivial game, except from the real user testing, that we have not been able to d
 
 \subsection{Software Requirements}
 
+The software requirements of this application will be based on usability, minimal WebLab resource
+usage and effectiveness of the programming. Those requirements are listed below:
+
+\begin{itemize}
+
+	\item The user interface must allow the user to understand how to program the robot.
+	\item The user interface must show the robot doing what had been programmed to do.
+	\item The robot must follow the code developed in the interface.
+	\item The programming must not block the interface of the user.
+	\item The program development must not use the resource until the test is reserved.
+	\item The user must be able to edit the program after testing it.
+	\item The server and the client must be loosely coupled.
+
+\end{itemize}
+
+Taking into account those requirements, it has been decided to develop a new experiment server and
+to add some more \acrshort{api}s to WebLab client. Moreover, Google's Blockly~\cite{blockly} is
+going to be used for the development, since it is the most known platform to create visual editors
+in a web platform and contains code generators for \acrlong{js}, Dart~\cite{dart}, Python and
+\acrshort{php}.
+
 \subsection{Design Specification}
+
+The software itself will follow the same design specification as in the trivial game. Nevertheless,
+it has been decided that the code generation is going to be done in the client side, since it
+supposes less security concern by using the \acrshort{api} provided by the experiment server and not
+programming the experiment server itself (or even the robot). Therefore, \acrlong{js} generator will
+be used.
+
+Moreover, since one of the requirements is that the software must not use the resource (the robot
+Romie) while the user is creating the program, and can only be reserved once the user tries to test
+it, a new \acrshort{api} call is needed in the WebLab \acrshort{api}. We can see an example of this
+\acrshort{api} calls in the algorithm~\ref{alg:new_api}.
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={New WebLab \acrshort{api} functions.},
+	label={alg:new_api}, listingname={Algorithm}, numbers=left]
+// We set a callback for being called when reserving the experiment.
+//
+// This way, the server will be able to know the program and
+// return it to the client once the experiment is reserved.
+Weblab.setOnGetInitialDataCallback(function() {
+    return {"blocks": Blockly.Xml.domToText(
+        Blockly.Xml.workspaceToDom(workspace)
+    )};
+});
+
+// We set a callback for finishing the experiment.
+//
+// This way, we can save the data into web storage
+// and enable the user to edit the code and reserve
+// again.
+Weblab.setOnFinishedCallback(function(data) {
+    console.log("Experiment finished with: ");
+    console.log(data);
+});
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
+Moreover, since all commands in WebLab are sent asynchronously, we need to wait for the movement to
+finish before attempting the next movement. The problem is that if we do a \emph{while} loop, the
+interface will be broken in an infinite loop. In this case, we have taken advantages of the scopes
+introduced by the \acrshort{js}-interpreter and we have created some wrapper functions to move the
+robot. We can see the real function example in algorithm~\ref{alg:move_func}, the wrapper function
+example in algorythm~\ref{alg:wrapper} and the generated code in algorithm~\ref{alg:generated}.
+
+As we can see, we first define the move functions in a similar way to what we did for the trivial
+type game. Then, we create some wrappers for the functions and add them to the context of the code
+execution. That way, in out block code we can call those functions and not block the execution, so
+that we can do a \emph{while} loop until the server responds.
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={Robot movement function.},
+	label={alg:move_func}, listingname={Algorithm}, numbers=left]
+Romie = function() {
+    this.moving = false;
+}
+
+Romie.prototype.forward = function() {
+    this.moving = true;
+    Weblab.sendCommand('{"command":"F"}', function(response) {
+        this.moving = false;
+    }.bind(this));
+}
+
+var romie = new Romie();
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={Function wrapper.},
+	label={alg:wrapper}, listingname={Algorithm}, numbers=left]
+function initApi(interpreter, scope) {
+	// Add Romie movement checker to the context
+	var wrapper = function() {
+		return interpreter.createPrimitive(romie.isMoving());
+	};
+	this.setProperty(scope, 'isMoving',
+		this.createNativeFunction(wrapper));
+
+	// Add an API function for the forward() block.
+	wrapper = function() {
+		romie.forward();
+	};
+	interpreter.setProperty(scope, 'forward',
+		interpreter.createNativeFunction(wrapper));
+}
+var myInterpreter = new Interpreter(
+	Blockly.JavaScript.workspaceToCode(workspace),
+	initApi);
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={Generated code.},
+	label={alg:generated}, listingname={Algorithm}, numbers=left]
+// Block code
+Blockly.JavaScript['romie_move_forward'] = function(block) {
+    code = 'forward();\n'+
+            'while(isMoving());\n';
+    return code;
+};
+
+// Which generates
+forward();
+while(isMoving());
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
+Since one of the requirements is for the user to always know what is happening, we will use the
+block highlighting provided by blockly. This way, when the code is executed, the code being executed
+is highlighted, and the user can debug the code.
+
+Furthermore, the user interface displays the two cameras of the robot once it starts testing the
+code. This way, the user can see what is happening with the robot and actually test how the robot
+moves.
+
+TODO: experiment flow
 
 \subsection{User Manual}
 
+TODO: user manual
+
 \subsection{Issue Management}
+
+TODO: issue management

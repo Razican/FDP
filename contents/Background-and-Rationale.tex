@@ -10,10 +10,10 @@ will deepen into them.
 \subsection{Remote Laboratories}
 
 Remote laboratories are usual laboratories, with the peculiarity that they can be accessed through
-the Internet~\cite{remote_labs}. They give students the option to use the laboratory even from home
-or while the university or school is closed. This means that the students are able to do their
-homework or experimentation using the equipment at their school or university without the need for
-them to be physically there.
+the Internet~\cite{remote_labs}. They give students the option to use the laboratory from home even
+when the university or school is closed. This means that the students are able to do their homework
+or experimentation using the equipment at their school or university without the need for them to be
+physically there.
 
 Currently they are becoming more popular due to the competitive advantage they can give to schools
 and universities. Since there is no need for the student to be physically in the laboratory, the
@@ -21,7 +21,7 @@ laboratory does not need to be physically in the school or university, giving th
 laboratories between institutions and thus giving important economic benefits without reducing
 the practice time of the students, or even increasing it.
 
-Thus, remote laboratories can be really helpful in teaching main concepts about science and
+Therefore, remote laboratories can be really helpful in teaching main concepts about science and
 technology. The next laboratories are the most known ones that are working with science and
 technology.
 
@@ -46,11 +46,12 @@ experimentation and another one for simulated experimentation.
 WebLab-Deusto is a remote laboratory located at the University of Deusto, Bilbao. There are multiple
 types of laboratories there, and all is being controlled by a software they developed, called
 WebLab. Moreover, Pablo Orduña, one of it's main researches developed a complete federation model
-to be able to share laboratories across the world~\cite{porduna_phd}.
+to be able to share laboratories across the world~\cite{porduna_phd} transparently to the final
+user.
 
 In WebLab-Deusto they created one of the most used remote laboratories in electronics teaching. It
-is called \acrlong{visir} or \acrshort{visir}~\cite{visir}, and it recreates circuits made visually
-by students in real hardware so that students can take real measurements.
+is called \acrlong{visir} or \acrshort{visir}~\cite{visir}, and it recreates electronic circuits
+made visually by students in real hardware so that students can take real measurements.
 
 \begin{figure}[!htbp]
 	\centering
@@ -63,7 +64,7 @@ by students in real hardware so that students can take real measurements.
 The \acrshort{golab} Project, or \acrlong{golab} uses remote and virtual laboratories to encourage
 young people from 10 to 18 years old to learn about \acrlong{stem}
 (\acrshort{stem})~\cite{golab_web}. They have created a web portal to access those laboratories.
-They collaborate with many virtual laboratories, such as WebLab-Deusto, for instance.
+They collaborate with many remote laboratories, such as WebLab-Deusto, for instance.
 
 \begin{figure}[!htbp]
 	\centering
@@ -74,9 +75,9 @@ They collaborate with many virtual laboratories, such as WebLab-Deusto, for inst
 \subsubsection{iLab Project at \acrshort{mit}}
 
 The \acrlong{mit} has its own remote laboratory platform called iLab. They have many remote
-laboratories where they experiment with Dynamic Signal Analyzers, Heat Exchangers and even with
-Polymer Crystallization. It has even inspired some big projects using this technology such as an
-on-line repository to locate remote laboratories~\cite{ilabs_multi}.
+laboratories where they experiment with \acrlong{dsa}s (\acrshort{dsa}), heat exchangers and even
+with polymer crystallization. It has even inspired some big projects using this technology such as
+an on-line repository to locate remote laboratories~\cite{ilabs_multi}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -90,25 +91,25 @@ projects in \acrshort{mit} and elsewhere.
 
 \subsubsection{Robotic remote experiments}
 
-Some of the laboratories listed before have currently implementations of robotic experiments in
-as a teaching material in some areas. In WebLab-Deusto, for example, they have what they call
-WebLab-Bot (Figure~\ref{fig:weblab-bot}). This robot is based on Azkar-Bot robot and it is used for
-electronic students to learn how to program it. They have simple demonstrations that follow a black
-line or respond to simple commands.
+Some of the laboratories listed before have currently implementations of robotic experiments as a
+teaching material in some areas. In WebLab-Deusto, for example, they have what they call WebLab-Bot
+(figure~\ref{fig:weblab-bot}). This robot is based on Azkar-Bot~\cite{azkar_bot} robot and it is
+used for electronic students to learn how to program it. They have simple demonstrations that follow
+a black line or respond to simple commands.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{fig/weblab-bot}
-	\caption{WebLab-Bot, a robot based on Azkar-Bot, a remote laboratory in WebLab-Deusto.}
+	\caption{WebLab-Bot, a robot based on Azkar-Bot. A remote laboratory in WebLab-Deusto.}
 	\label{fig:weblab-bot}
 \end{figure}
 
-Moreover, in The Labshare Institute, they have a robot called iRobot, that teaches how to deal with
-accuracy of sensors, localization and mapping. Finally, the robot that will be used in this
-project is called Romie (Figure~\ref{subfig:romie}). It is located in WebLab-Deusto and it has the
-needed functionality for this project: it is capable of following a line, it detects walls and it
-detects intersections. We have built a complete labyrinth for it where we will deploy this project
-(figure~\ref{subfig:labyrinth}).
+Moreover, in \acrlong{tli} (\acrshort{tli}), they have a robot called iRobot, that teaches how to
+deal with accuracy of sensors, localization and mapping. Finally, the robot that will be used in
+this project is called Romie (Figure~\ref{subfig:romie}). It is located in WebLab-Deusto and it has
+the needed functionality for this project: it is capable of following a line, it detects walls and
+it detects intersections. WebLab-Deusto has a complete labyrinth for it where we will deploy this
+project (figure~\ref{subfig:labyrinth}).
 
 \begin{figure}[ht]
 	\centering
@@ -127,9 +128,9 @@ detects intersections. We have built a complete labyrinth for it where we will d
 
 \subsubsection{Simulations}
 
-Even if the project will not be based on simulated robotics but in real robots, currently many
-many projects use simulations to bring some of the experience to users. A simulation is usually
-less costly than a remote laboratory, since not much hardware is required. On the other hand,
+Even if the project will not be based on simulated robotics but in real robots, currently some
+projects use simulations to bring some of the experience to users. A simulation is usually less
+costly than a remote laboratory, since not much specialized hardware is required. On the other hand,
 students will not be using real tools and experimentation environments, so the experience of using
 them will not be as complete as in a remote laboratory.
 
@@ -144,8 +145,12 @@ to create in a real laboratory.
 Serious games are video games that do not only entertain, but they manage to teach. Thanks to that,
 they can be used to improve the quality of the learning environment for students. Moreover, since
 games in many cases attract better the attention of young people, they can even be a better tool for
-teaching, at least, the basic concepts of some subjects. For our purpose here, we will analyze the
-most known tools for visual programming environments.
+teaching, at least, the basic concepts of some subjects~\cite{serious_games}.
+
+We will check some serious games, and we will also analyze the most known tools for visual
+programming environments, since we will use these tools for creating one of our scenarios.
+
+TODO: analyze serious games
 
 Visual programming is a way of programming that instead of using real code in a real programming
 language uses a visual interface to create programs and then translate them to a well known
@@ -172,7 +177,7 @@ library to create visual programming editors and \acrshort{ide}s. It has the sam
 so it contains basic programming blocks to build applications by joining them
 (Figure~\ref{fig:blockly}), and it also gives developers the option to create their own blocks with
 a simple \acrlong{api} or \acrshort{api}. It was created by Google and it's source is now available
-in GitHub.
+in GitHub~\cite{blockly}.
 
 \begin{figure}[ht]
 	\centering
@@ -186,9 +191,9 @@ complete \acrshort{ide}s for their projects based on visual programming.
 
 \subsection{WebLab-Deusto}
 
-WebLab-Deusto is a remote laboratory facility located in the University of Deusto~\cite{weblab},
-Bilbao. Since 2001, it has been providing students with remote laboratories to complete their
-academic learnings. Since then, it has been extended and many of it's laboratories is available
+WebLab-Deusto is a remote laboratory facility located in the University of Deusto, Bilbao. Since
+2001, it has been providing students with remote laboratories to complete their academic
+learnings~\cite{weblab}. Since then, it has been extended and many of it's laboratories is available
 all over the world. It's no longer a laboratory only made for microelectronics university students
 since nowadays it serves schools and universities everywhere to provide them with remote
 laboratories.
@@ -198,8 +203,8 @@ Among others, it serves an experiment to prove and measure the Archimedes' princ
 microelectronics experiments with \acrlong{pld}s or \acrshort{pld}s and \acrlong{fpga}s or
 \acrshort{fpga}s. Moreover, there are more laboratories in development, such as an elevator to teach
 students how to program and control them, an experiment with an aquarium where students can give
-them food and, of course, the project presented here: a complete learning experience given by a
-robot.
+them food and, of course, the project presented here: a complete learning and gaming experience
+brought remotely using a robot, Romie.
 
 \begin{figure}[!htbp]
 	\centering
@@ -215,8 +220,8 @@ a platform like this can have, and in this project, the challenge is to demonstr
 laboratories can be used for serious gaming.
 
 This project will be at the best of our knowledge the first game platform based on remote
-laboratories, it will open the course to future developments in this area and enable future games to
-be developed using this technology.
+laboratories, it will open the course to future developments in this area by enabling future games
+to be developed using this technology.
 
 It will be a challenge to adapt the current technology and experimentation platforms to this kind of
 project, but the result can be unique and powerful for teaching all kind of knowledge in a fun way
