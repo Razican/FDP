@@ -519,3 +519,47 @@ hardware issue that we could not solve easily, since the sensor would arrive at 
 being requested. Taking that into account we decided to implement a software solution directly in
 the robot so that it would go back automatically if something went wrong, as we can see in
 algorithm~\ref{alg:romie_wall}.
+
+\subsection{Labpsico Experiment Integration}
+
+When we were finishing the trivial type game, we had the opportunity to work with Deusto's
+psychology laboratory, Labpsico. They offered us to integrate an experiment they had with our robot,
+so that users could perform their activity before entering the game.
+
+This experiment has been developed by Helena Matute's team, recently prized by the Jot Down
+magazine~\cite{jotdown_helena} by one of her works. The experiment consists on clicking in 40 cards
+and looking on the other side. Randomly, a mark can appear in one or both sides of the card
+(figure~\ref{subfig:labpsico_card_mark}) and users should be able to determine if there is
+correlation
+between the two.
+
+\begin{figure}[!htbp]
+	\centering
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=0.3\textheight]{fig/manuals/trivial/labpsico/card1}
+		\caption{Labpsico card without a mark}\label{subfig:labpsico_card}
+	\end{subfigure}\quad
+	\begin{subfigure}{0.4\textwidth}
+		\centering
+		\includegraphics[height=0.3\textheight]{fig/manuals/trivial/labpsico/card2}
+		\caption{Labpsico card with a mark.}\label{subfig:labpsico_card_mark}
+	\end{subfigure}\quad
+	\caption{Some of the cards used in Labpsico's experiment.}
+\end{figure}
+
+After that, the users will be divided into two groups: test users and control users. This way, using
+the blind experiment technique, they will show some random information to the control group and
+information about medicine effectiveness to the test group. Then they will repeat the experiment
+using some other cards but with the same randomness.
+
+Comparing both experiments Labpsico will get the real knowledge of how did the experience change
+their minds about not proven science or \emph{pseudoscience}. After that, a score will be given to
+the user that will be added to the game (figure~\ref{fig:labpsico_romie}).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=0.35\textheight]{fig/manuals/trivial/labpsico/labpsico-romie}
+	\caption{Romie game with the Labpsico experiment.}
+	\label{fig:labpsico_romie}
+\end{figure}

@@ -2,8 +2,8 @@
 !fig/*.pdf
 !fig/manuals/*.pdf
 !fig/manuals/trivial/*.pdf
+!fig/manuals/trivial/labpsico/*.pdf
 !fig/manuals/blockly/*.pdf
-!fig/manuals/labpsico/*.pdf
 *.log
 *.aux
 *.bcf
