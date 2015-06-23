@@ -13,7 +13,7 @@ inputs and a \acrshort{usb} connector~\cite{arduino_datasheet}.
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[height=0.3\textheight]{fig/arduino-board}
+	\includegraphics[height=0.3\textheight]{fig/arduino-board.jpg}
 	\caption{Arduino Uno microcontroler.}
 	\label{fig:arduino_board}
 \end{figure}
@@ -140,7 +140,8 @@ class RoMIExperiment(Experiment.Experiment):
     @Override(Experiment.Experiment)
     @logged("info")
     def do_get_api(self):
-        return "2" # The experiment has to notify the experiment's API version
+        return "2" # The experiment has to notify the experiment's
+                   # API version
 
     @Override(Experiment.Experiment)
     @logged("info")
