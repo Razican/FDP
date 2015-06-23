@@ -7,13 +7,13 @@ the same as for the trivial type game, hardware requirements are not included in
 Furthermore, since the same software design is followed for the communication with the robot, there
 is no need on adding it to this section.
 
-We will therefore explain the software requirements for the visual programming client, the design
-specification of the software that has been used for this section and the user manual for this
-application, along with the issue management of this section, that will be mainly focused on the
-software issues.
+therefore, here will be explained the software requirements for the visual programming client, the
+design specification of the software that has been used for this section and the user manual for
+this application, along with the issue management of this section, that will be mainly focused on
+the software issues.
 
 There is no need of explaining the testing plan, since it has been the same as the one used in the
-trivial game, except from the real user testing, that we have not been able to do.
+trivial game, except from the real user testing, that there has not been an opportunity to do it.
 
 \subsection{Software Requirements}
 
@@ -22,8 +22,8 @@ usage and effectiveness of the programming. Those requirements are listed below:
 
 \begin{itemize}
 
-	\item The user interface must allow the user to understand how to program the robot.
-	\item The user interface must show the robot doing what had been programmed to do.
+	\item The \acrlong{ui} must allow the user to understand how to program the robot.
+	\item The \acrlong{ui} must show the robot doing what had been programmed to do.
 	\item The robot must follow the code developed in the interface.
 	\item The programming must not block the interface of the user.
 	\item The program development must not use the resource until the test is reserved.
@@ -48,8 +48,8 @@ be used.
 
 Moreover, since one of the requirements is that the software must not use the resource (the robot
 Romie) while the user is creating the program, and can only be reserved once the user tries to test
-it, a new \acrshort{api} call is needed in the WebLab \acrshort{api}. We can see an example of this
-\acrshort{api} calls in the algorithm~\ref{alg:new_api}.
+it, a new \acrshort{api} call is needed in the WebLab \acrshort{api}. An example of this
+\acrshort{api} calls can be seen in the algorithm~\ref{alg:new_api}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -57,7 +57,7 @@ it, a new \acrshort{api} call is needed in the WebLab \acrshort{api}. We can see
 \fvset{frame=single}
 \begin{pyglist}[language=javascript, caption={New WebLab \acrshort{api} functions.},
 	label={alg:new_api}, listingname={Algorithm}, numbers=left]
-// We set a callback for being called when reserving the experiment.
+// Set a callback for being called when reserving the experiment.
 //
 // This way, the server will be able to know the program and
 // return it to the client once the experiment is reserved.
@@ -67,9 +67,9 @@ Weblab.setOnGetInitialDataCallback(function() {
     )};
 });
 
-// We set a callback for finishing the experiment.
+// Set a callback for finishing the experiment.
 //
-// This way, we can save the data into web storage
+// This way, the block data can be saved into web storage
 // and enable the user to edit the code and reserve
 // again.
 Weblab.setOnFinishedCallback(function(data) {
@@ -81,17 +81,18 @@ Weblab.setOnFinishedCallback(function(data) {
 \end{minipage}
 \end{center}
 
-Moreover, since all commands in WebLab are sent asynchronously, we need to wait for the movement to
-finish before attempting the next movement. The problem is that if we do a \emph{while} loop, the
-interface will be broken in an infinite loop. In this case, we have taken advantages of the scopes
-introduced by the \acrshort{js}-interpreter and we have created some wrapper functions to move the
-robot. We can see the real function example in algorithm~\ref{alg:move_func}, the wrapper function
-example in algorythm~\ref{alg:wrapper} and the generated code in algorithm~\ref{alg:generated}.
+Moreover, since all commands in WebLab are sent asynchronously, the client must wait for the
+movement to finish before attempting the next movement. The problem is that with a \emph{while}
+loop, the interface would be broken in an infinite loop. In this case, and thanks to the advantages
+brought by the scopes introduced by the \acrshort{js}-interpreter, the solution has been as simple
+as creating some wrapper functions to move the robot. The real function example can be seen in
+algorithm~\ref{alg:move_func}, the wrapper function example in algorythm~\ref{alg:wrapper} and the
+generated code in algorithm~\ref{alg:generated}.
 
-As we can see, we first define the move functions in a similar way to what we did for the trivial
-type game. Then, we create some wrappers for the functions and add them to the context of the code
-execution. That way, in out block code we can call those functions and not block the execution, so
-that we can do a \emph{while} loop until the server responds.
+As it can be seen, the move functions are first defined in a similar way to what it was developed
+for the trivial type game. Then, some wrappers are created for the functions and they are added to
+the context of the code execution. That way, the block code can call those functions without
+blocking the execution, enabling to insert a \emph{while} loop until the server responds.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -166,13 +167,12 @@ while(isMoving());
 \end{minipage}
 \end{center}
 
-Since one of the requirements is for the user to always know what is happening, we will use the
-block highlighting provided by blockly. This way, when the code is executed, the code being executed
-is highlighted, and the user can debug the code.
+Since one of the requirements is for the user to always know what is happening, the block
+highlighting provided by Blockly will be used. This way, when the code is executed, the code being
+executed is highlighted, and the user can debug that code.
 
-Furthermore, the user interface displays the two cameras of the robot once it starts testing the
-code. This way, the user can see what is happening with the robot and actually test how the robot
-moves.
+Furthermore, the \acrlong{ui} displays the two cameras of the robot once it starts testing the code.
+This way, the user can see what is happening with the robot and actually test how the robot moves.
 
 TODO: experiment flow
 

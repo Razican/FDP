@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1999/01/01]
 \ProvidesClass{DeustoFDP}[2015/03/02 v0.2 Final Degree Project template for University of Deusto]
 
-\LoadClass[a4paper,10pt]{book}          % We are using the template book as our base
+\LoadClass[a4paper,10pt]{book}          % Using the book template as our base
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
@@ -32,7 +32,7 @@
   \setlist[description,3]{font=\normalfont\itshape}
 
 \RequirePackage{fancyhdr}               % Package for defining page header and footer
-  \fancypagestyle{plain}{               % We redefine the page style at the begining of new chapterss
+  \fancypagestyle{plain}{               % Redefine the page style at the beginning of new chapters
     \fancyhf{}
     \fancyfoot[LE,RO]{\thepage}
     \renewcommand{\headrulewidth}{0pt}
@@ -45,7 +45,7 @@
 \if@twocolumn\hbox{}\newpage\fi\fi\fi}%
 \makeatother
 
-\fancypagestyle{phdthesis}{             % We redefine main page style
+\fancypagestyle{phdthesis}{             % Redefine main page style
   \fancyhf{}
   \fancyhead[RO]{\itshape\MakeUppercase{Proyecto Fin de Grado}}
   \fancyhead[LE]{\sffamily\itshape\thechapter. \leftmark}

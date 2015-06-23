@@ -1,20 +1,20 @@
 \section{Trivial Type Game}
 
-The first part of this project is the development of a trivial type game, that will use Romie, the
-robot in WebLab-Deusto and its labyrinth to create an experience for learning general knowledge.
+The first part of this project will be the development of a trivial type game that will use Romie,
+the robot in WebLab-Deusto and its labyrinth to create an experience for learning general knowledge.
 Moreover, the trivial type questions will be configurable, so that the game can be adapted.
 
 In this section that development will be explained, firstly by analyzing the software and hardware
 requirements. Then, the design specification for the hardware and the software will be shown, and
 finally, the deployment considerations will be specified.
 
-After that, we well analyze the testing plan and we will have a user manual to learn how to use the
-application.
+After that, the testing plan project will be analyzed and a user manual will be presented to learn
+how to use the application, even though it should not be necessary thanks to the work in usability.
 
 \subsection{Software and Hardware Requirements}
 
 This software will have tight requirements in terms of user-friendliness, communication stability
-and security, since it must be developed using as far as possible current hardware and be easy to
+and security, since it must be deployed using as far as possible current hardware and be easy to
 use by young students. Moreover, since it will be presented in crowded events, it must support high
 load and availability.
 
@@ -27,13 +27,13 @@ as it follows:
 \begin{itemize}
 	\item The software must be able to communicate with the robot.
 	\item The software must be able to send control commands to the robot.
-	\item The software must be able to receive command results from the robot.
+	\item The software must be able to receive command responses from the robot.
 	\item The software must be integrated in the WebLab-Deusto platform as a new experiment.
-	\item The software must have an easy to use user interface based on human-computer interaction
-	principles.
+	\item The software must have an easy to use \acrshort{ui} based on \acrlong{hci} or
+	\acrshort{hci} principles.
 	\item The software must be stable enough to support dozens of accesses per hour.
-	\item The software must provide enough questions so that the user never finishes with them and
-	can be randomly selected.
+	\item The software must provide enough questions so that the user never finishes them and can be
+	randomly selected.
 	\item The game must increase difficulty as the user gets more points.
 	\item The game must finish in less than 15 minutes.
 	\item A ranking must be provided after finishing the game for the user to know its ranking.
@@ -46,7 +46,7 @@ as it follows:
 	\item The robot must never get blocked, so in the case of an incident it must be automatically
 	recovered.
 	\item The cameras must be accessible from the Internet.
-	\item The robot must be controlled via Bluetooth.
+	\item The robot must be controlled via \acrlong{bt}.
 	\item The robot must never run out of power.
 	\item The robot must be able to read all the \acrshort{rfid} tags with at least 99~\% accuracy.
 	\item The robot must use the current labyrinth in WebLab-Deusto.
@@ -56,16 +56,16 @@ as it follows:
 \subsection{Design Specification}
 
 Taking into account the previous requirements, it has been decided to do a small hardware redesign
-and a complete software design for the project. We will now see the hardware and software design
-specifications.
+and a complete software design for the project. Now the hardware and software design specifications
+will be shown.
 
 \subsubsection{Hardware Specification}
 
-Current robot is deployed with a simple \acrshort{rfid} (\acrlong{rfid}) reader (model ID-12) not
-capable of reading further than 120~mm~\cite{rfid}, which has shown some issues when reading the
-\acrshort{rfid} tags. For that reason, it has been decided to use a new module, the model ID-20LA
+Current robot is deployed with a simple \acrshort{rfid} (\acrlong{rfid}) reader
+(model ID-12)~\cite{rfid}, which has shown some issues when reading the \acrshort{rfid} tags. For
+that reason, it has been decided to use a new module, the model ID-20LA~\cite{rfid}
 (figure~\ref{fig:rfid}). This will give the robot a much higher reliability when reading
-\acrshort{rfid} tags, and the range of the new sensor is 180~mm~\cite{rfid}.
+\acrshort{rfid} tags.
 
 \begin{figure}[!htbp]
 	\centering
@@ -77,36 +77,36 @@ capable of reading further than 120~mm~\cite{rfid}, which has shown some issues 
 On the other hand, there is currently an issue with the availability of the robot. It is powered
 with a 2Ah \acrshort{lipo} battery, and is recharged when needed. This has a big issue, since as we
 have seen, in high load conditions would not meet the required availability, and furthermore, in
-weekends or holidays, we will not be able to change and recharge the battery, so it has been decided
-to deploy a cable installation from the roof of the ceiling of the laboratory, and the design of the
-robot has been adapted so that the cables do not get stuck in the labyrinth.
+weekends or holidays, there would be no option to change and recharge the battery. Therefore it has
+been decided to deploy a cable installation from the ceiling of the laboratory, and the design of
+the robot has been adapted so that the cables do not get stuck in the labyrinth.
 
 The rest of the robot will be used as it is, since it provides with the needed capabilities for the
 needs of the project: It has a wall sensor capable of avoiding crashes with walls, infrared sensors
-to detect the lines in the ground, motors and wheels capable of moving the robot, Bluetooth
-connection to communicate with it and Arduino microcontroller, to install the needed firmware
-(figure~\ref{fig:bluetooth}).
+to detect the lines in the ground, motors and wheels capable of moving the robot, \acrlong{bt}
+connection to communicate with it and an Arduino microcontroller, so that is easy to modify the
+current firmware (figure~\ref{fig:bluetooth}).
 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.65\textwidth]{fig/bluetooth}
-	\caption{Bluetooth module on top of the Arduino shield.}
+	\caption{\acrlong{bt} module on top of the Arduino shield.}
 	\label{fig:bluetooth}
 \end{figure}
 
 The robot is currently configured with a camera D-link DCS-932L that provides infrared vision if the
 light is shut down and normal vision if not, and it can be accessed from Wi-Fi and
-Ethernet~\cite{camera}. In this case we will use it via Wi-Fi, since the robot will be moving around
-a big space.
+Ethernet~\cite{camera}. In this case it will be used via Wi-Fi, since the robot will be moving
+around a big space with multiple physical obstacles.
 
 \subsubsection{Software Specification}
 
 The software in for this implementation will be divided modularly, thinking on scalability and
-code reuse. The application must be built on top of WebLab-Deusto, so we will use as much as
-possible the provided \acrshort{api}s. Moreover, and due to deployment needs, the software will be
-divided between the robot, an intermediate server and WebLab software. In figure~\ref{fig:exp_flow}
-we can see the flow chart for the experiment. This will be the user's flow in the application. In
-figure~\ref{fig:layers} we can see the software layers, each one with its functions.
+code reuse. The application must be built on top of WebLab-Deusto, so provided \acrshort{api}s will
+be used as much as possible. Moreover, and due to deployment needs, the software will be divided
+between the robot, an intermediate server and WebLab software. The flow chart for the experiment can
+be seen in figure~\ref{fig:exp_flow}. This will be the user's flow in the application. In
+figure~\ref{fig:layers} the software layers can be seen, each one with its functions.
 
 \clearpage
 \begin{figure}
@@ -125,27 +125,27 @@ figure~\ref{fig:layers} we can see the software layers, each one with its functi
 \end{figure}
 \clearpage
 
-The robot will use a slightly modified version of the current firmware, since we need it not to get
-blocked by any wall in case of crash and we need a more reliable implementation. That is why it has
-been programmed to turn back if a hardware error occurs and collides with a wall. Nevertheless, the
-external Bluetooth \acrshort{api} will be the same as the one that was already implemented at the
-beginning of the project:
+The robot will use a slightly modified version of the current firmware, since it must not get
+blocked by any wall in case of crash and a more reliable implementation is needed. That is why it
+has been programmed to turn back if a hardware error occurs and collides with a wall. Nevertheless,
+the external \acrlong{bt} \acrshort{api} will be the same as the one that was already implemented at
+the beginning of the project:
 
-It will provide a ``F'' command to go forward, that will return the \acrshort{rfid} tag if it finds
-one, a ``L'' command to turn left, its counterpart ``R'' command to turn right and it will also
+It will provide an ``F'' command to go forward, that will return the \acrshort{rfid} tag if it finds
+one, an ``L'' command to turn left, its counterpart ``R'' command to turn right and it will also
 provide the command ``S'' that will check if there is a wall in front of the robot. Nevertheless,
 and even if the experiment server can check for a wall, the robot itself has been programmed to
-return a ``NAK'' command if it is commanded to go forward against a wall.
+return a ``\acrshort{nak}'' response if it is commanded to go forward against a wall.
 
 The robot itself works following the lines in the labyrinth until it finds an intersection. It is
-also capable of turning in those intersections, so if it is commanded to turn right, it will perform
-a 90 degree turn right and face the path in its right. When the robot stops on top of a
-\acrshort{rfid} tag, it will return the tags address.
+also capable of turning in those intersections: if it is commanded to turn right, it will make a 90
+degree right turn and face the path in its right. When the robot stops on top of an \acrshort{rfid}
+tag, it will return the tag's label.
 
 The intermediate server will provide a small \acrlong{rest} (\acrshort{rest}) \acrshort{api} in a
 small Python server. Its only duty will be to provide a simple interface for the robot using
-\acrshort{http} instead of Bluetooth, needed due to deployment constraints. We can see an example of
-the \acrshort{api} usage with Python in algorithm~\ref{alg:romie_rest}.
+\acrshort{http} instead of \acrlong{bt}, needed due to deployment constraints. An example of
+the \acrshort{api} usage in Python can be seen in algorithm~\ref{alg:romie_rest}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -155,19 +155,19 @@ the \acrshort{api} usage with Python in algorithm~\ref{alg:romie_rest}.
 	label={alg:romie_rest}, listingname={Algorithm}, numbers=left]
 import urllib2
 
-# Let's go forward and get RFID tag if exists
+# Go forward and get RFID tag if exists
 tag = urllib2.urlopen('http://192.168.0.190:8000/f',
     timeout = 60).read()
 
-# Let's turn left
+# Left turn
 result = urllib2.urlopen('http://192.168.0.190:8000/l',
     timeout = 60).read()
 
-# Let's turn right
+# Right turn
 result = urllib2.urlopen('http://192.168.0.190:8000/r',
     timeout = 60).read()
 
-# Let's check if we have a wall in front of us
+# Check if there is a wall in front of the robot
 result = urllib2.urlopen('http://192.168.0.190:8000/s',
     timeout = 60).read()
 \end{pyglist}
@@ -175,23 +175,23 @@ result = urllib2.urlopen('http://192.168.0.190:8000/s',
 \end{minipage}
 \end{center}
 
-This \acrshort{rest} \acrshort{api} is connected to the robot via Bluetooth and sends commands with
-the PyBluez Bluetooth wrapper, as we can see in algorithm~\ref{alg:rasp_bluetooth}. This way, with
-the software layered, the development is not only faster and easier, but the product is more
-scalable and modular.
+This \acrshort{rest} \acrshort{api} is connected to the robot via \acrlong{bt} and sends commands
+with the PyBluez \acrlong{bt} wrapper, as it can bee seen in algorithm~\ref{alg:rasp_bluetooth}.
+This way, with the software layered, the development is not only faster and easier, but the product
+is more scalable and modular.
 
 Then, the experiment server required by the WebLab-Deusto architecture, will provide a WebLab
 command \acrshort{api}, that will be callable by the client of the experiment. This server will be
-developed in Python because the WebLab server libraries are better intended for this language. The
-data for the ranking will be stored in a SQLite 3 database. This database provides all the needed
-\acrshort{acid} constraints (\acrlong{acid}) with a small \acrshort{sql} (\acrlong{sql})
-\acrlong{rdbms} (\acrshort{rdbms})~\cite{sqlite}.
+developed in Python because the WebLab Python server libraries are better tested than other language
+libraries. The data for the ranking will be stored in a SQLite 3 database. This database provides
+all the needed \acrshort{acid} constraints (\acrlong{acid}) with a small \acrshort{sql}
+(\acrlong{sql}) \acrlong{rdbms} (\acrshort{rdbms})~\cite{sqlite}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
 \singlespace
 \fvset{frame=single}
-\begin{pyglist}[language=python, caption={Bluetooth connection example.},
+\begin{pyglist}[language=python, caption={\acrlong{bt} connection example.},
 	label={alg:rasp_bluetooth}, listingname={Algorithm}, numbers=left]
 try:
     import bluetooth
@@ -211,7 +211,7 @@ class RoMIE:
     def _wait_ack(self):
         if not BT_available: return
 
-        # we read until we read ACK or NAK
+        # read until ACK or NAK is read
         received = ''
         while 'ACK' not in received and 'NAK' not in received:
             received += BT_socket.recv(1024)
@@ -260,7 +260,7 @@ Finally, the client will be developed using \acrshort{html} 5 (\acrlong{html} ve
 \acrlong{js} (using JQuery library) and Bootstrap for a rapid development. It will use the WebLab
 \acrlong{js} library to communicate with the experiment server. This library is an asynchronous
 \acrshort{ajax} (\acrlong{ajax}) library that provides a simple interface to interact with
-experiments. We can see an example in algorithm~\ref{alg:weblab_lib}.
+experiments. An example can be seen in algorithm~\ref{alg:weblab_lib}.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -286,10 +286,11 @@ Weblab.sendCommand("L", function(response) {
 The game logic is divided between the server and the client. Since the client is manipulable, all
 the data is stored in the server and the game cannot be manipulated from client side. This logic
 includes the point logic, which has a small bonus depending on when has the last correct answer been
-given and the difficulty of the question. We can see an example of this bonus calculation in the
-algorithm~\ref{alg:point_bonus}. As it can be seen, the bonus will be a time bonus (the number of
-seconds less than 30 since the last correct answer) divided by 5 and multiplied by the difficulty of
-the question divided by 10.
+given and the difficulty of the question. An example of this bonus calculation can be seen in the
+algorithm~\ref{alg:point_bonus}. As that algorithm shows, the bonus will be a time bonus (the number
+of seconds less than 30 since the last correct answer) divided by 5 and multiplied by the difficulty
+of the question divided by 10. These bonuses have been adjusted after some trials where they have
+been found to enable better gameplay.
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -315,8 +316,6 @@ score is saved. Moreover, and since that database is used for saving the data fr
 form, which is provided by the user, prepared statements are used in order to avoid \acrshort{sql}
 injection attacks.
 
-TODO: explain game rules calculation
-
 The game configuration, containing all the questions with their bonuses, the \acrshort{rest}
 \acrshort{api} server's \acrshort{ip} and port and all the needed configuration for the display such
 as if it is a demonstration environment or needs to show some other client side experiment is stored
@@ -326,19 +325,19 @@ allows for scalability.
 
 Furthermore, since this experiment uses a hardware resource (Romie, the robot), it could happen that
 two users try to play with it at the same time. This is solved using the queue management provided
-by WebLab. We only have to register the resource's priority queue and WebLab will do all the needed
-resource sharing. Moreover, in the case of having two separate robots of the same type, it would not
-be difficult to use the federation model and the user would end up in one of the two robots
-transparently.
+by WebLab. It is as simple as registering the resource's priority queue and WebLab will do all the
+needed resource sharing management. Moreover, in the case of having two separate robots of the same
+type, it would not be difficult to use the federation model and the user would end up in one of the
+two robots transparently.
 
 \subsection{Deployment Considerations}
 
 The deployment must be done in WebLab-Deusto, a remote laboratory environment with three custom
-networks and limited physical space. In figure~\ref{fig:weblab-network} we can see the network of
-WebLab-Deusto. As we can see, Plunder is the core server. It provides access to WebLab-Deusto web
-environment and it provides most of the experiment servers. On the other hand, Blood is the one
-working as a proxy for all the cameras in WebLab-Deusto, some of them connected by Wi-Fi and others
-by Ethernet.
+networks and limited physical space. A simplified diagram of the network of WebLab-Deusto can be
+seen in figure~\ref{fig:weblab-network}. As that figure shows, Plunder is the core server. It
+provides access to WebLab-Deusto web environment and it provides most of the experiment servers. On
+the other hand, Blood is the one working as a proxy for all the cameras in WebLab-Deusto, some of
+them connected by Wi-Fi and others by Ethernet.
 
 \begin{figure}[!htbp]
 	\centering
@@ -346,14 +345,14 @@ by Ethernet.
 	\caption{WebLab-Deusto network simplification.}\label{fig:weblab-network}
 \end{figure}
 
-In this case, since we need Bluetooth to connect our experiment server to the robot, and Plunder,
-Blood and WebLab-test should not need new hardware, we will use a Raspberry Pi Model B
-(figure~\ref{fig:rasp}) with a \acrshort{usb} (\acrlong{usb}) Bluetooth dongle to connect to the
-robot and to provide a simple \acrshort{http} server with the \acrshort{rest} \acrshort{api}. This
-small computer provides us with the needed hardware for such small web server, since it provides
-512~MB of \acrshort{ram}, a 700~Mhz \acrshort{arm} \acrshort{cpu}, 2 \acrshort{usb} ports and an
-Ethernet port. All this in a small form factor, not bigger than a usual credit card, and consuming
-only 3.5~W~\cite{rasp_b}.
+In this case, since the use of \acrlong{bt} to connect our experiment server to the robot was a
+requirement, and Plunder, Blood and WebLab-test should not receive any new hardware, a Raspberry Pi
+Model B computer (figure~\ref{fig:rasp}) will be used, with a \acrshort{usb} (\acrlong{usb})
+\acrlong{bt} dongle to connect to the robot and to provide a simple \acrshort{http} server with the
+\acrshort{rest} \acrshort{api}. This small computer will be enough for such small web server, since
+it provides 512~MB of \acrshort{ram}, a 700~Mhz \acrshort{arm} \acrshort{cpu}, 2 \acrshort{usb}
+ports and an Ethernet port. All this in a small form factor, not bigger than a usual credit card,
+and consuming only 3.5~W~\cite{rasp_b} of electrical power.
 
 \begin{figure}[!htbp]
 	\centering
@@ -371,15 +370,8 @@ be restarted for each change if the experiment server is located there, the expe
 this experiment will be located in WebLab-test. This way, there will be no need to restart Plunder
 each time a new change is made to the experiment, giving higher availability to WebLab-Deusto.
 
-In figure~\ref{fig:labyrinth_diagram} we can see the \acrshort{rfid} tags location in a scale model
-labyrinth. The labels are these ones, in order:
-
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=0.7\textwidth]{fig/labyrinth-diagram}
-	\caption{The labyrinth used in this project to scale with \acrshort{rfid} the tags.}
-	\label{fig:labyrinth_diagram}
-\end{figure}
+In figure~\ref{fig:labyrinth_diagram} the location of the \acrshort{rfid} tags can be shown in a
+scale model of the labyrinth. The labels are these ones, in order:
 
 \begin{itemize}
 	\item \textbf{A}: 4F:00:88:AB:CB
@@ -391,23 +383,29 @@ labyrinth. The labels are these ones, in order:
 	\item \textbf{G}: 4F:00:56:9F:08
 \end{itemize}
 
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.7\textwidth]{fig/labyrinth-diagram}
+	\caption{The scale model of the labyrinth used in this project with the \acrshort{rfid} tags.}
+	\label{fig:labyrinth_diagram}
+\end{figure}
+
 \subsection{Testing Plan}
 
 The testing for this software is divided in 3 main environments. First of all, the usual manual
 testing is made by the developers and by the administrators of WebLab-Deusto. This showed many bugs
-that we were able to fix almost as soon as they appeared, but in any case, this is not enough
-for a production environment.
+that they were fixed almost as soon as they appeared, but in any case, this is not enough for a
+production environment.
 
 After the manual testing, WebLab-Deusto has a \acrlong{ci} system connected to Travis \acrshort{ci}
-in GitHub. It provides many unit tests that provide stability to the code, since we receive emails
-when a commit does not pass the tests. Nevertheless, for the \acrlong{gui} or \acrshort{gui}, it is
-difficult to provide unit tests.
+in GitHub. It provides many unit tests that provide stability to the code, since the developers
+receive emails when a commit does not pass the tests. Nevertheless, for the \acrlong{gui}
+(\acrshort{gui}), it is difficult to provide unit tests.
 
-Finally, and also as a demonstration of the potential of the project, we tested the project in an
-event at the University of Deusto called ForoTech~\cite{forotech}. In this event we were be able to
-test the project in a high load environment, where the robot received more than a hundred uses in a
-short period of time, demonstrating the reliability and also giving us the possibility to fix some
-issues.
+Finally, and also as a demonstration of the potential of the project, the project was tested in an
+event at the University of Deusto called ForoTech~\cite{forotech}. In this event the project was
+tested in a high load environment, where the robot received hundreds of uses in a short period of
+time, demonstrating the reliability and also showing some small issues that were soon fixed.
 
 \subsection{User Manual}
 
@@ -450,7 +448,7 @@ also a version without the registration screen if you only want to test the robo
 administrators for permission to use it. After filling the registration form  with your own data,
 you can click the register button. \emph{Note: the experiment is prepared to work with students of
 less than 18 years old, so any age above that or below 5 years old is considered an input error,
-that will be notified in the interface}.
+that will be notified in the \acrlong{ui}}.
 
 \begin{figure}[!htbp]
 	\centering
@@ -504,16 +502,17 @@ can see in figure~\ref{fig:man:romie_ranking}.
 
 \subsection{Issue Management}
 
-During the development we have faced some issues that we have had to deal with. One of the first
-issues we had was that the robot was not reading the lines properly, mainly the ones in the
+During the development some issues have been faced, which had to be solved. One of the first issues
+that appeared was that the robot was not reading the lines properly, mainly the ones in the
 intersections. That was caused because the contrast between the line and the background was
-insufficient. We solved it by painting all the labyrinth in white and adding the lines in black
-painting them. That way we did not need to use tape and the robot started to work properly.
+insufficient. It was solved by painting all the labyrinth in white and painting the black lines.
+That way there was no need for using tape and the robot started to work properly.
 
-Other issue we found was that the robot did not read the \acrshort{rfid} tags every time it went on
-top of them. The problem was that the \acrshort{rfid} reader we were using, the ID-12 seemed to have
-some working issues, since the reader was located about 10-15~mm from the floor. We decided to
-change it by a ID-20 reader, that has a 180~mm range~\cite{rfid} and worked perfectly.
+Other issue that came across was that the robot did not read the \acrshort{rfid} tags every time it
+went on top of them. The problem was that the \acrshort{rfid} reader the robot had, the ID-12 seemed
+to have some defect, since the reader was located about 10-15~mm from the floor and its range was of
+120~mm~\cite{rfid}. It was decided to change it by a ID-20 reader, that has a 180~mm
+range~\cite{rfid} and worked perfectly.
 
 \begin{figure}[!htbp]
 	\centering
@@ -522,9 +521,9 @@ change it by a ID-20 reader, that has a 180~mm range~\cite{rfid} and worked perf
 	\label{fig:lines}
 \end{figure}
 
-Furthermore, we had the problem with electricity, that it was using batteries, and as we have seen
-above, we had to change it to cables. The main issue was that the cables would get entangled with
-the walls. We solved it by extending a flexible artifact in top of the robot
+Furthermore, the electricity was another problem: the robot was using batteries, and as it can be
+seen above, it had to be changed to cables. The main issue was that the cables could get entangled
+with the walls. It was solved by extending a flexible artifact in top of the robot
 (figure~\ref{fig:lines}).
 
 \begin{center}
@@ -544,24 +543,23 @@ if (millis()-lastTimeFollow >= 8000) {
 \end{minipage}
 \end{center}
 
-Finally, we had a problem with the wall sensor, since it would disconnect sometimes. This was a
-hardware issue that we could not solve easily, since the sensor would arrive at least 1 month after
-being requested. Taking that into account we decided to implement a software solution directly in
-the robot so that it would go back automatically if something went wrong, as we can see in
+Finally, there was a problem with the wall sensor, since it would disconnect sometimes. This was a
+hardware issue that could not be solved easily, since the sensor would arrive at least 1 month after
+being requested. Taking that into account it was decided to implement a software solution directly
+in the robot so that it would go back automatically if something went wrong, as it can be seen in
 algorithm~\ref{alg:romie_wall}.
 
 \subsection{Labpsico Experiment Integration}
 
-When we were finishing the trivial type game, we had the opportunity to work with Deusto's
-psychology laboratory, Labpsico. They offered us to integrate an experiment they had with our robot,
-so that users could perform their activity before entering the game.
+When the trivial type game was almost finished, there was an opportunity to work with Deusto's
+psychology laboratory, Labpsico. They proposed to integrate an experiment they had with this game,
+so that users could perform their activity before playing.
 
-This experiment has been developed by Helena Matute's team, recently prized by the Jot Down
+This experiment had been developed by Helena Matute's team, recently prized by the Jot Down
 magazine~\cite{jotdown_helena} by one of her works. The experiment consists on clicking in 40 cards
-and looking on the other side. Randomly, a mark can appear in one or both sides of the card
+and looking on the other side of them. Randomly, a mark can appear in one or both sides of the card
 (figure~\ref{subfig:labpsico_card_mark}) and users should be able to determine if there is
-correlation
-between the two.
+correlation between the two marks.
 
 \begin{figure}[!htbp]
 	\centering
@@ -595,10 +593,10 @@ the user that will be added to the game (figure~\ref{fig:labpsico_romie}).
 \end{figure}
 
 For the integration of this experiment, and since it has been developed using Bootstrap, there is no
-need on changing its style. Moreover, we have tight style requirements from the Labpsico team, so
-this could not be changed easily. That is why we have modified only some of the libraries to take
+need on changing its style. Moreover, there were tight style requirements from the Labpsico team, so
+this could not be changed easily. That is why only some of the libraries have been modified to take
 benefit from the ones already used in WebLab and to lower the number of downloads per request.
 Finally, a simple \emph{iframe} \acrshort{html} element has been used to show the experiment inside
-the Bootstrap's \emph{modal} element.
-
-TODO: explain how data is sent to Labpsico
+the Bootstrap's \emph{modal} element. The data is sent to Labpsico directly using the web interface,
+using an on-line database in FireBase~\cite{firebase}. This experiment will only appear once per
+each user.
