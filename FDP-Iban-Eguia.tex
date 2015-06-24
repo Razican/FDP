@@ -4,6 +4,16 @@
 \usepackage{verbments}
 \listofpyglistingsname{Algorithm Index}
 
+\usepackage{fp}
+
+\newlength{\TOarg} \newlength{\TOunit}
+{\catcode`p=12 \catcode`t=12 \gdef\TOnum#1pt{#1}}
+\newcommand\TOop[2]{\setlength{\TOarg}{#2}%
+   \FPdiv\TOres{\expandafter\TOnum\the\TOarg}{\expandafter\TOnum\the\TOunit}%
+   \FPround\TOres\TOres{#1}}
+\newcommand{\TOspace}{\ }
+\newcommand\TOin[2][2]{\setlength{\TOunit}{1in}\TOop{#1}{#2}\TOres\TOspace in}
+
 \hypersetup{
 	pdfauthor={Iban Eguia Moraza},
 	pdftitle={Remote robotic experiment integration in a game platform to promote STEM in young people},
