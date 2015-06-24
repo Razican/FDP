@@ -289,12 +289,18 @@ The game logic is divided between the server and the client. Since the client is
 the data is stored in the server and the game cannot be manipulated from client side. This logic
 includes the point logic, which has a small bonus depending on when has the last correct answer been
 given and the difficulty of the question. An example of this bonus calculation can be seen in the
-algorithm~\ref{alg:point_bonus}. As that algorithm shows, the bonus will be a time bonus (the number
-of seconds less than 30 since the last correct answer) divided by 5 and multiplied by the difficulty
-of the question divided by 10. These bonuses have been adjusted after some trials where they have
-been found to enable better gameplay.
+algorithm~\ref{alg:point_bonus}. As that algorithm shows, the formula used for the bonus calculation
+will can be seen below, where $\Delta{t}$ is the time between the last correct answer and the
+current one and $d$ is the difficulty of the question, from 0 to 9. These bonuses have been adjusted
+after some trials where they have been found to enable better gameplay.
 
-TODO use math mode for the formula
+\[
+    f(x)=
+\begin{cases}
+    \frac{d}{10}+1\cdot\frac{(30-\Delta{t})}{5},	& \text{if } 30-\Delta{t} > 5\\
+    \frac{d}{10}+1,									& \text{otherwise}
+\end{cases}
+\]
 
 \begin{center}
 \begin{minipage}{.9\textwidth}
@@ -375,22 +381,25 @@ this experiment will be located in WebLab-test. This way, there will be no need 
 each time a new change is made to the experiment, giving higher availability to WebLab-Deusto.
 
 In figure~\ref{fig:labyrinth_diagram} the location of the \acrshort{rfid} tags can be shown in a
-scale model of the labyrinth. The labels are these ones, in order:
-
-\begin{itemize}
-	\item \textbf{A}: 4F:00:88:AB:CB
-	\item \textbf{B}: 4F:00:56:A7:6F
-	\item \textbf{C}: 4F:00:56:DA:57
-	\item \textbf{D}: 4F:00:56:8F:86
-	\item \textbf{E}: 4F:00:56:87:C4
-	\item \textbf{F}: 50:00:8F:90:D5
-	\item \textbf{G}: 4F:00:56:9F:08
-\end{itemize}
+scale model of the labyrinth.
 
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=0.7\textwidth]{fig/labyrinth-diagram}
-	\caption{The scale model of the labyrinth used in this project with the \acrshort{rfid} tags.}
+	\captionsetup{singlelinecheck=off}
+	\caption[The scale model of the labyrinth used in this project with the \acrshort{rfid} tags.]
+	{The scale model of the labyrinth used in this project with the \acrshort{rfid} tags. The labels
+	of the tags can be seen below:
+
+	\begin{itemize}
+		\item \textbf{A}: 4F:00:88:AB:CB
+		\item \textbf{B}: 4F:00:56:A7:6F
+		\item \textbf{C}: 4F:00:56:DA:57
+		\item \textbf{D}: 4F:00:56:8F:86
+		\item \textbf{E}: 4F:00:56:87:C4
+		\item \textbf{F}: 50:00:8F:90:D5
+		\item \textbf{G}: 4F:00:56:9F:08
+	\end{itemize}}
 	\label{fig:labyrinth_diagram}
 \end{figure}
 

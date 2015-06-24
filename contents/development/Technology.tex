@@ -93,6 +93,15 @@ that has been used for some styling. \acrshort{css} 3 comes with new selectors~\
 useful functions that provide much of the functionality originally only available through
 \acrlong{js}, which gave bigger overhead than \acrshort{css}.
 
+For the visual programming part, the technology used has been Google's Blockly~\cite{blockly}. This
+technology allows to create custom blocks such as the ones for moving the robot, and provides many
+tools for creating code in many programming languages, such as \acrlong{js}, \acrshort{php}, Python
+or Dart. This way, and using some blocks provided by Blockly itself, the user can create
+conditionals, variables and any type of algorithms to control the robot. Moreover, since WebLab does
+not save the current state of the blocks between reservations, \acrshort{html} 5 web storage has
+been used to allow persistent data to be used in subsequent requests. Web storage allows storing
+persistent data in the client~\cite{web_storage}.
+
 For the communication between the client and the server, the WebLab \acrshort{api} has been used for
 sending commands using \acrshort{json}. Nevertheless, in the case of the visual programming mode,
 Google Blockly has been used, which has a built in blocks to \acrshort{xml} converter, and that has
@@ -179,8 +188,6 @@ experiment \acrshort{api}. This gives the option of easily and rapidly developin
 WebLab. Since this \acrshort{api} is developed in Python 2, Python 3 has not been used. Python 3 is
 a mayor release that is not backwards compatible, so, for backwards compatibility reasons, both, the
 WebLab server script and the \acrshort{rest} \acrshort{api} script have been developed in Python 2.
-
-TODO: Blockly, bower, localstorage
 
 \section{Tools}
 
@@ -301,7 +308,10 @@ Pi computer.
 \end{figure}
 
 In all cases, the communication between the various servers has been done via \acrshort{ssh}, since
-it provides an easy interface with the consoles of the servers.
+it provides an easy interface with the consoles of the servers. Moreover, for managing the packages
+in the second scenario (packages like Blockly, JQuery or Bootstrap) Bower~\cite{bower} has been
+used. This tool manages all those packages and versions and allows to avoid the need to include all
+the code in the repository.
 
 \subsection{Version Control}
 
