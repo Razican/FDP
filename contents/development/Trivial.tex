@@ -213,7 +213,7 @@ class RoMIE:
     def _wait_ack(self):
         if not BT_available: return
 
-        # read until ACK or NAK is read
+        # read until ACK or NAK is received
         received = ''
         while 'ACK' not in received and 'NAK' not in received:
             received += BT_socket.recv(1024)
@@ -237,13 +237,13 @@ The experiment server \acrshort{api} will have all the needed commands to use th
 the ones that need data being sent to the server, \acrshort{json} has been used (\acrlong{json}). It
 is preferred over \acrshort{xml} (\acrlong{xml}) due to the higher compatibility of \acrshort{json}
 and the more data-orientation of this \acrlong{rfc} or \acrshort{rfc}. This provides lower
-overhead~\cite{xml_vs_json}.
+overhead~\cite{xml_vs_json}. These are the commands provided by the experiment server:
 
 \begin{itemize}
 	\item ``\textbf{F}'', ``\textbf{L}'' and ``\textbf{R}'' commands, to move forward and turn left
 	and right. The ``S'' command is not provided since the experiment does not require it and the
 	robot will not drive towards a wall. The ``\textbf{F}'' will return a random question based on
-	the current user's points.
+	the current user's points if an \acrshort{rfid} is found.
 
 	\item ``\textbf{CHECK\_REGISTER}'' command, to check if the user has been registered in the
 	experiment before and decide if the experiment should show the registration form.
@@ -287,12 +287,12 @@ Weblab.sendCommand("L", function(response) {
 
 The game logic is divided between the server and the client. Since the client is manipulable, all
 the data is stored in the server and the game cannot be manipulated from client side. This logic
-includes the point logic, which has a small bonus depending on when has the last correct answer been
-given and the difficulty of the question. An example of this bonus calculation can be seen in the
-algorithm~\ref{alg:point_bonus}. As that algorithm shows, the formula used for the bonus calculation
-will can be seen below, where $\Delta{t}$ is the time between the last correct answer and the
-current one and $d$ is the difficulty of the question, from 0 to 9. These bonuses have been adjusted
-after some trials where they have been found to enable better gameplay.
+includes the scoring logic, which has a small bonus depending on when has the last correct answer
+been given and the difficulty of the question. An example of this bonus calculation can be seen in
+the algorithm~\ref{alg:point_bonus}. As that algorithm shows, the formula used for the bonus
+calculation will can be seen below, where $\Delta{t}$ is the time between the last correct answer
+and the current one and $d$ is the difficulty of the question, from 0 to 9. These bonuses have been
+adjusted after some trials where they have been found to enable better gameplay.
 
 \[
     f(x)=
@@ -320,18 +320,18 @@ if correct:
 \end{minipage}
 \end{center}
 
-After the point calculation, the points in the database get updated. That way, if the user
-disconnects from WebLab, or some other issue happens, the points will be saved. Only the best
-score is saved. Moreover, and since that database is used for saving the data from the registration
-form, which is provided by the user, prepared statements are used in order to avoid \acrshort{sql}
+After the point calculation, the score in the database gets updated. That way, if the user
+disconnects from WebLab, or some other issue happens, the score will be saved. Only the best score
+is saved. Moreover, and since that database is used for saving the data from the registration form,
+which is provided by the user, prepared statements are used in order to prevent \acrshort{sql}
 injection attacks.
 
 The game configuration, containing all the questions with their bonuses, the \acrshort{rest}
 \acrshort{api} server's \acrshort{ip} and port and all the needed configuration for the display such
 as if it is a demonstration environment or needs to show some other client side experiment is stored
 in a python file in the experiment server. That way, modifying questions or anything that could be
-needed, such as creating debug experiments is managed with that simple configuration script, which
-allows for scalability.
+needed, such as creating debug experiments is managed with that simple configuration script,
+increasing scalability.
 
 Furthermore, since this experiment uses a hardware resource (Romie, the robot), it could happen that
 two users try to play with it at the same time. This is solved using the queue management provided
@@ -345,8 +345,8 @@ two robots transparently.
 The deployment must be done in WebLab-Deusto, a remote laboratory environment with three custom
 networks and limited physical space. A simplified diagram of the network of WebLab-Deusto can be
 seen in figure~\ref{fig:weblab-network}. As that figure shows, Plunder is the core server. It
-provides access to WebLab-Deusto web environment and it provides most of the experiment servers. On
-the other hand, Blood is the one working as a proxy for all the cameras in WebLab-Deusto, some of
+provides access to WebLab-Deusto's web environment and it provides most of the experiment servers.
+On the other hand, Blood is the one working as a proxy for all the cameras in WebLab-Deusto, some of
 them connected by Wi-Fi and others by Ethernet.
 
 \begin{figure}[!htbp]
@@ -377,8 +377,8 @@ the \acrshort{http} proxy server.
 
 Finally, since the server software will change many times during the development, and Plunder must
 be restarted for each change if the experiment server is located there, the experiment server for
-this experiment will be located in WebLab-test. This way, there will be no need to restart Plunder
-each time a new change is made to the experiment, giving higher availability to WebLab-Deusto.
+this project will be located in WebLab-test. This way, there will be no need to restart Plunder each
+time a new change is made during the development, increasing the availability of WebLab-Deusto.
 
 In figure~\ref{fig:labyrinth_diagram} the location of the \acrshort{rfid} tags can be shown in a
 scale model of the labyrinth.
@@ -406,9 +406,9 @@ scale model of the labyrinth.
 \subsection{Testing Plan}
 
 The testing for this software is divided in 3 main environments. First of all, the usual manual
-testing is made by the developers and by the administrators of WebLab-Deusto. This showed many bugs
-that they were fixed almost as soon as they appeared, but in any case, this is not enough for a
-production environment.
+testing is made by the developer, co-workers and administrators of WebLab-Deusto. This helped to
+identify some bugs that they were fixed almost as soon as they appeared, but in any case, this is
+not enough for a production environment.
 
 After the manual testing, WebLab-Deusto has a \acrlong{ci} system connected to Travis \acrshort{ci}
 in GitHub. It provides many unit tests that provide stability to the code, since the developers
@@ -418,7 +418,7 @@ receive emails when a commit does not pass the tests. Nevertheless, for the \acr
 Finally, and also as a demonstration of the potential of the project, the project was tested in an
 event at the University of Deusto called ForoTech~\cite{forotech}. In this event the project was
 tested in a high load environment, where the robot received hundreds of uses in a short period of
-time, demonstrating the reliability and also showing some small issues that were soon fixed.
+time, demonstrating its reliability and also showing some small issues that were soon fixed.
 
 \subsection{User Manual}
 
@@ -557,16 +557,16 @@ if (millis()-lastTimeFollow >= 8000) {
 \end{center}
 
 Finally, there was a problem with the wall sensor, since it would disconnect sometimes. This was a
-hardware issue that could not be solved easily, since the sensor would arrive at least 1 month after
-being requested. Taking that into account it was decided to implement a software solution directly
-in the robot so that it would go back automatically if something went wrong, as it can be seen in
-algorithm~\ref{alg:romie_wall}.
+hardware issue that could not be solved easily, since the sensor would arrive at least one month
+after being requested. Taking that into account it was decided to implement a software solution
+directly in the robot so that it would go back automatically if something went wrong, as it can be
+seen in algorithm~\ref{alg:romie_wall}.
 
 \subsection{Labpsico Experiment Integration}
 
-When the trivial type game was almost finished, there was an opportunity to work with Deusto's
-psychology laboratory, Labpsico. They proposed to integrate an experiment they had with this game,
-so that users could perform their activity before playing.
+When the trivial type game was almost finished, there was an opportunity to work with University of
+Deusto's psychology laboratory, Labpsico. They proposed to integrate an experiment they had with
+this game, so that users could perform their activity before playing.
 
 This experiment had been developed by Helena Matute's team, recently prized by the Jot Down
 magazine~\cite{jotdown_helena} by one of her works. The experiment consists on clicking in 40 cards
