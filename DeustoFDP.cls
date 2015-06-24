@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1999/01/01]
 \ProvidesClass{DeustoFDP}[2015/03/02 v0.2 Final Degree Project template for University of Deusto]
 
-\LoadClass[a4paper,10pt]{book}          % Using the book template as our base
+\LoadClass[a4paper,10pt]{book}          % Using the book template as the base
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
