@@ -7,10 +7,10 @@ on remote laboratories. This will introduce young students between 10 and 18 yea
 (Science, Technology, Engineering and Mathematics) in an enjoyable way.
 
 The game platform will be divided in two main scenarios. The first of them will be a trivial type
-game, where the user will be able to control a robot in a labyrinth and answer some questions
-that will give points to the user. Winners will be given a prize. Moreover, in this scenario, a
+game, where the user will be able to control a robot in a labyrinth and answer some questions that
+will give points to the user. Winners will be given a prize. Moreover, in this scenario, a
 psychological experiment will be performed, aiming to help in the fight against pseudoscience.
 
 The second scenario will be a service in which the user will be able to program the robot from
-a visual IDE (Integrated Development Environment). This will teach students the basics of pro-
-gramming by letting them use blocks to program the robot and see the result.
+a visual IDE (Integrated Development Environment). This will teach students the basics of
+programming by letting them use blocks to program the robot and see the result.
