@@ -83,14 +83,14 @@ responsiveness of the WebLab client.
 One of the decisions to make was which version of JQuery to use, since all major browsers are
 supported by this library's version 2, but as it often happens, Microsoft's Internet Explorer prior
 to version 9 is not supported~\cite{jquery_versions}. Finally version 2 has been used, since the
-traffic in WebLab Deusto using that browser was low.
+traffic in WebLab Deusto using those versions of Microsoft's Internet Explorer browser was low.
 
 The data representation in the client has been done with \acrshort{html}5~\cite{html5_spec}
 (figure~\ref{subfig:html5}). This new version of \acrshort{html} provides many useful features in
 forms that have been used for the registration, as well as great integration with \acrshort{css} 3
 that has been used for some styling. \acrshort{css} 3 comes with new selectors~\cite{css3_sel} and
 useful functions that provide much of the functionality originally only available through
-\acrlong{js}, which gave bigger overhead than \acrshort{css}.
+\acrlong{js}, which had higher overhead than \acrshort{css}.
 
 For the visual programming part, the technology used has been Google's Blockly~\cite{blockly}. This
 technology allows to create custom blocks such as the ones for moving the robot, and provides many
@@ -108,14 +108,14 @@ been used to save programs before and after the experiment reservation.
 
 On the other hand, the communication between the WebLab server and the Raspberry Pi with the small
 \acrshort{http} server providing access to the robot has been done using a \acrshort{rest}
-\acrshort{api} in the server, developed in Python, that has been used by the WebLab server to send
-commands to the robot.
+\acrshort{api} in the Raspberry Pi server, developed in Python, that has been used by the WebLab
+server to send commands to the robot.
 
 The WebLab server side has been programmed using Python (figure~\ref{fig:python}). The main reason
-has been that the WebLab \acrshort{api} is being developed actively mainly for Python, and it has
+has been that the WebLab \acrshort{api} is being developed actively primarily for Python, and it has
 a better integration, since WebLab itself is developed in Python. Moreover, Python is an adequate
-language for a development like this, since it does not have much overhead and it allows a rapid
-development. An example of the WebLab \acrshort{api} can be seen in
+language for a development like this, since it does not have high overhead and it is designed for
+rapid development. An example of the WebLab \acrshort{api} can be seen in
 algorithm~\ref{alg:weblab_server_api}.
 
 \begin{figure}[!htbp]
@@ -184,9 +184,10 @@ class RoMIExperiment(Experiment.Experiment):
 
 As it can be seen in algorithm~\ref{alg:weblab_server_api}, WebLab has some built-in methods for the
 experiment \acrshort{api}. This gives the option of easily and rapidly developing laboratories for
-WebLab. Since this \acrshort{api} is developed in Python 2, Python 3 has not been used. Python 3 is
-a mayor release that is not backwards compatible, so, for backwards compatibility reasons, both, the
-WebLab server script and the \acrshort{rest} \acrshort{api} script have been developed in Python 2.
+WebLab. Since this \acrshort{api} is developed in Python 2.7, Python 3 has not been used. Python 3
+is a mayor release that is not backwards compatible, so, for backwards compatibility reasons, both,
+the WebLab server script and the \acrshort{rest} \acrshort{api} script have been developed in Python
+2.7.
 
 \section{Tools}
 
@@ -203,14 +204,14 @@ as Atom~\cite{atom_web}, Lime Text~\cite{lime_web} or Microsoft Visual Studio
 Code~\cite{ms_code_web}. There are also other console tools like Vim~\cite{vim_web},
 Nano~\cite{nano_web} or Emacs~\cite{emacs_web}.
 
-Nevertheless, even if one of the goals of the project was to work with as much open source software
-as possible, the truth is that currently, the closed sourced ones offer better performance. For
-instance, Atom tries to be the open source alternative to Sublime Text, but it starts really slowly
-and the plug-ins for Sublime Text can be found for almost every situation, while such a big plug-in
-repository does not exist for Atom. Lime Text might outperform Sublime Text in the future, but
-currently it is still in an unstable release. Microsoft Visual Studio Code, on the other hand, was
-released later this year and it did not have any benefits with respect to Sublime Text, so it was
-worthless changing the editor at this point.
+Nevertheless, even if one of the goals of the project was to work with as much \acrshort{floss}
+software as possible (\acrlong{floss}), the truth is that currently, the closed sourced ones offer
+better performance. For instance, Atom tries to be the open source alternative to Sublime Text, but
+it starts really slowly and the plug-ins for Sublime Text can be found for almost every situation,
+while such a big plug-in repository does not exist for Atom. Lime Text might outperform Sublime Text
+in the future, but currently it is still in an unstable release. Microsoft Visual Studio Code, on
+the other hand, was released later this year and it did not have any benefits with respect to
+Sublime Text, so it was worthless changing the editor at this point.
 
 \begin{figure}[!htbp]
 	\centering
@@ -227,18 +228,18 @@ worthless changing the editor at this point.
 	\caption{Code editors used.}
 \end{figure}
 
-On the other hand, \acrshort{ide}s are big softwares that from my point of view interfere in the
-programming process. In the end, this is about feeling comfortable with the tool, and the velocity
-and simplicity offered by editors outperform \acrshort{ide}s greatly. That is why the tool used for
-all the programming (except the Arduino script) has been Sublime Text 3
-(figure~\ref{subfig:sublime}).
+On the other hand, \acrshort{ide}s are big softwares that in some cases like this development, due
+to the multiple and different technologies use might interfere in the development process. In the
+end, this is about feeling comfortable with the tool, and the velocity and simplicity offered by
+editors outperform \acrshort{ide}s greatly. That is why the tool used for all the programming
+(except the Arduino script) has been Sublime Text 3 (figure~\ref{subfig:sublime}).
 
 Nevertheless, since the robot's microcontroller is an Arduino, the Arduino
 \acrshort{ide}~\cite{arduino_ide} (figure~\ref{subfig:arduino_community}) has been used to program
 the robot itself, since it is simple and easy to use for this simple task. For some specific
 situations such as small testing changes made in the project's Raspberry Pi or testing server
-configuration Nano has been used since it provides a simple console interface easy to use when
-connecting via \acrshort{ssh} (\acrlong{ssh}).
+configuration Nano has been used, since it provides a simple \acrshort{cli} (\acrlong{cli}) and it
+is easy to use when connecting via \acrshort{ssh} (\acrlong{ssh}).
 
 \subsection{User Interface Testing}
 
@@ -276,15 +277,15 @@ Chrome's developer tools can be seen in figure~\ref{fig:chrome_dev}.
 For the development, the \acrlong{os} used has been Ubuntu \acrshort{gnome}~\cite{ubuntu_gnome_web}
 (figure~\ref{subfig:ubuntu_gnome}). This distribution gives all the needed productivity and user
 friendliness. The \acrlong{ui} used has been \acrshort{gnome} Shell, and as far as possible, it has
-been tried to use only \acrshort{floss} software (\acrlong{floss}).
+been tried to use only \acrshort{floss} software.
 
 Moreover, for the server environments two main operating systems have been used: Ubuntu
 Server~\cite{ubuntu_web} (figure~\ref{subfig:ubuntu}) and Raspbian~\cite{raspbian_web}, the
 Raspberry Pi \acrshort{arm} compatible Debian~\cite{debian_web} distribution
 (figure~\ref{subfig:debian}). The first of the two has been used for main WebLab-Deusto servers. It
-is used due to its user friendliness, even if being a \acrshort{cli} (\acrlong{cli}). The second one
-has been used due to its compatibility with the hardware being used for the project, the Raspberry
-Pi computer.
+is used due to its user friendliness, even if it has to be controlled via \acrshort{cli}. The second
+one has been used due to its compatibility with the hardware being used for the project, the
+Raspberry Pi computer.
 
 \begin{figure}[!htbp]
 	\centering
@@ -318,7 +319,7 @@ For the version control of the project, Git~\cite{git_web} has been used (figure
 Git is a distributed \acrlong{vcs} or \acrshort{vcs} created by Linus Torvalds to improve the Linux
 kernel development. It allows having repositories distributed without a need of a central
 repository. Nevertheless, GitHub~\cite{github_web} is the service used by WebLab-Deusto for the Git
-hosting as well as for issue tracking since GitHub provides with a simple issue management
+hosting as well as for issue tracking, since GitHub provides with a simple issue management
 interface, with simple and effective pull requests integrated with the code and commits.
 
 \begin{figure}[!htbp]
