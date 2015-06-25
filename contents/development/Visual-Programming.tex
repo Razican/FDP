@@ -181,4 +181,15 @@ TODO: user manual
 
 \subsection{Issue Management}
 
-TODO: issue management
+During the development of this scenario some issues have appeared and have been solved. The first of
+them was that the \acrshort{api} of WebLab-Deusto was asynchronous, while in Blockly, for simple
+tasks like moving forward, right, left, or checking sensors next commands had to wait for the
+previous ones. This was solved using the contexts and wrappers for the functions that have been
+explained before, in algorithm~\ref{ref:wrapper}.
+
+Moreover, and due to the needed higher availability of the robot, the experiment had to be reserved
+only when the generated code was being tested. Nevertheless, the \acrshort{api} provided by
+WebLab-Deusto for \acrlong{js} clients had the methods required for doing the needed callbacks
+unimplemented. This was solved by implementing those new methods, seen before in
+algorithm~\ref{alg:new_api}. This was an issue because the WebLab client is being replaced by a new
+one in the near future, but the deadline for this one did not allow for its use.
