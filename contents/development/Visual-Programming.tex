@@ -1,8 +1,8 @@
 \section{Visual Programming}
 
 The second part of this project is to develop a visual programming interface to program the robot
-and test the programming skills of the users. Since the hardware platform for this section has been
-the same as for the trivial type game, hardware requirements are not included in this section.
+and improve the programming skills of the users. Since the hardware platform for this section has
+been the same as for the trivial type game, hardware requirements are not included in this section.
 Furthermore, since the same software design is followed for the communication with the robot, there
 is no need on adding it to this section.
 
@@ -47,38 +47,7 @@ be used.
 
 Moreover, since one of the requirements is that the software must not use the resource (the robot
 Romie) while the user is creating the program, and can only be reserved once the user tries to test
-it, a new \acrshort{api} call is needed in the WebLab \acrshort{api}. An example of this
-\acrshort{api} calls can be seen in the algorithm~\ref{alg:new_api}.
-
-\begin{center}
-\begin{minipage}{.9\textwidth}
-\singlespace
-\fvset{frame=single}
-\begin{pyglist}[language=javascript, caption={New WebLab \acrshort{api} functions.},
-	label={alg:new_api}, listingname={Algorithm}, numbers=left]
-// Set a callback for being called when reserving the experiment.
-//
-// This way, the server will be able to know the program and
-// return it to the client once the experiment is reserved.
-Weblab.setOnGetInitialDataCallback(function() {
-    return {"blocks": Blockly.Xml.domToText(
-        Blockly.Xml.workspaceToDom(workspace)
-    )};
-});
-
-// Set a callback for finishing the experiment.
-//
-// This way, the block data can be saved into web storage
-// and enable the user to edit the code and reserve
-// again.
-Weblab.setOnFinishedCallback(function(data) {
-    console.log("Experiment finished with: ");
-    console.log(data);
-});
-\end{pyglist}
-\fvset{frame=none}
-\end{minipage}
-\end{center}
+it, a new \acrshort{api} call is needed in the WebLab \acrlong{js} \acrshort{api}.
 
 Moreover, since all commands in WebLab are sent asynchronously, the client must wait for the
 movement to finish before attempting the next movement. The problem is that with a \emph{while}
@@ -168,16 +137,56 @@ while(isMoving());
 
 Since one of the requirements is for the user to always know what is happening, the block
 highlighting provided by Blockly will be used. This way, when the code is executed, the code being
-executed is highlighted, and the user can debug that code.
+executed will be highlighted, and the user can debug that code.
 
 Furthermore, the \acrlong{ui} displays the two cameras of the robot once it starts testing the code.
 This way, the user can see what is happening with the robot and actually test how the robot moves.
+The complete experiment flow diagram is provided in figure~\ref{fig:blockly_flow}.
 
-TODO: experiment flow
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig/blockly-experiment-flow}
+	\caption{Experiment flow for Romie's Blockly interface.}
+	\label{fig:blockly_flow}
+\end{figure}
 
 \subsection{User Manual}
 
-TODO: user manual
+As in the case of the trivial type game, you must have an account in WebLab-Deusto and the
+permission to use this experiment. You have to go to \url{https://weblab.deusto.es/weblab/client/}
+and insert your credentials in the provided form.
+
+Once logged in, you will see ``romie\_blockly'' experiment under the ``Robot experiments'' category.
+You could see more experiments if you have the permission to use them. If you cannot find the
+experiment you should contact the administrators. Click on ``romie\_blockly'' or in its image and
+you will enter the programming page (figure~\ref{fig:man:blockly_reserve}).
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig/manuals/blockly/reservation}
+	\caption{Writing code for Romie in WebLab-Deusto.}
+	\label{fig:man:blockly_reserve}
+\end{figure}
+
+In this page, you will be able to program the robot. You will have some simple blocks that you can
+use to create you would like to test. Once finished programming, you can press the ``Reserve''
+button and reserve the experiment.
+
+If somebody is using the experiment you will be put into queue. When you access the experiment, you
+will see the code being executed in the left while you see the two cameras of the robot in the
+right (figure~\ref{fig:man:blockly_playing}). You will be able to determine which piece of code is
+being executed because it will be highlighted. Once the code finishes its execution, you will be
+redirected to see your code. There you will be able to change the code and reserve the experiment
+again.
+
+\begin{figure}[!htbp]
+	\centering
+	\includegraphics[width=0.85\textwidth]{fig/manuals/blockly/executing}
+	\caption{Testing your code with Romie.}
+	\label{fig:man:blockly_playing}
+\end{figure}
+
+\FloatBarrier
 
 \subsection{Issue Management}
 
@@ -187,9 +196,39 @@ tasks like moving forward, right, left, or checking sensors next commands had to
 previous ones. This was solved using the contexts and wrappers for the functions that have been
 explained before, in algorithm~\ref{alg:wrapper}.
 
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={New WebLab \acrshort{api} functions.},
+	label={alg:new_api}, listingname={Algorithm}, numbers=left]
+// Set a callback for being called when reserving the experiment.
+//
+// This way, the server will be able to know the program and
+// return it to the client once the experiment is reserved.
+Weblab.setOnGetInitialDataCallback(function() {
+    return {"blocks": Blockly.Xml.domToText(
+        Blockly.Xml.workspaceToDom(workspace)
+    )};
+});
+
+// Set a callback for finishing the experiment.
+//
+// This way, the block data can be saved into web storage
+// and enable the user to edit the code and reserve
+// again.
+Weblab.setOnFinishedCallback(function(data) {
+    console.log("Experiment finished with: ");
+    console.log(data);
+});
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
+
 Moreover, and due to the needed higher availability of the robot, the experiment had to be reserved
 only when the generated code was being tested. Nevertheless, the \acrshort{api} provided by
 WebLab-Deusto for \acrlong{js} clients had the methods required for doing the needed callbacks
-unimplemented. This was solved by implementing those new methods, seen before in
+unimplemented. This was solved by implementing those new methods, that can be seen in
 algorithm~\ref{alg:new_api}. This was an issue because the WebLab client is being replaced by a new
-one in the near future, but the deadline for this one did not allow for its use.
+one in the near future, but the deadline for this project did not allow its use.

@@ -285,7 +285,31 @@ Weblab.sendCommand("L", function(response) {
 \end{minipage}
 \end{center}
 
-TODO: explain camera update
+The game has two cameras, and each of them must be separately updated. For this task the script must
+wait until images are loaded before requesting them again. That is the best way of updating the
+cameras because they have one image file that is automatically updated and can be accessed via
+\acrshort{http}. The \acrlong{js} code can be seen in algorithm~\ref{alg:cameras}.
+
+\begin{center}
+\begin{minipage}{.9\textwidth}
+\singlespace
+\fvset{frame=single}
+\begin{pyglist}[language=javascript, caption={Camera update example.},
+	label={alg:cameras}, listingname={Algorithm}, numbers=left]
+updateOnboard = function() {
+    d = new Date();
+    $('#onboardCam img').attr("src",
+    "https://cams.weblab.deusto.es/webcam/proxied.py/romie_onboard?"
+    +d.getTime());
+}
+$('#onboardCam img').on("load", function() {
+    setTimeout(updateOnboard, 400);
+});
+updateOnboard();
+\end{pyglist}
+\fvset{frame=none}
+\end{minipage}
+\end{center}
 
 The game logic is divided between the server and the client. Since the client is manipulable, all
 the data is stored in the server and the game cannot be manipulated from client side. This logic
@@ -438,14 +462,14 @@ be able to insert your credentials in the login form and log in.
 
 Once logged in, you will see ``romie'' experiment under the ``Robot experiments'' category
 (figure~\ref{fig:man:romie_weblab}). You could see more experiments if you have the permission to
-use them. If you cannot find the experiment you should contact with the administrators. Click on
+use them. If you cannot find the experiment you should contact the administrators. Click on
 ``romie'' or in its image and you will enter the reservation page
 (figure~\ref{fig:man:romie_reserve}). There, you can reserve the experiment clicking the ``Reserve''
 button.
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.85\textwidth]{fig/manuals/trivial/romie-weblab}
+	\includegraphics[width=0.25\textwidth]{fig/manuals/romie-weblab}
 	\caption{Romie under ``Robot experiments'' in WebLab Deusto.}
 	\label{fig:man:romie_weblab}
 \end{figure}
